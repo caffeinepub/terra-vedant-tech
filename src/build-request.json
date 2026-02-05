@@ -1,0 +1,38 @@
+{
+  "kind": "build_request",
+  "title": "Make the header branding image slightly bigger",
+  "priority": "normal",
+  "requirements": [
+    {
+      "id": "REQ-1",
+      "text": "Increase the size of the header branding image in the sticky SiteHeader so it is slightly bigger across responsive breakpoints, without causing layout overflow or misalignment in the header.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "user-1"
+        ],
+        "quotes": [
+          "Image is to be made slightly bigger"
+        ]
+      },
+      "acceptanceCriteria": [
+        "The logo image rendered in the header (frontend/src/components/SiteHeader.tsx, <img alt=\"Terra Vedant AI Logo\">) appears noticeably but only slightly larger than before on mobile, tablet, and desktop breakpoints.",
+        "The header layout remains vertically centered, and the logo does not overlap the brand name text or the desktop navigation/CTA.",
+        "No horizontal overflow is introduced at any viewport width (no unexpected x-scroll).",
+        "The logo remains crisp and maintains aspect ratio (no stretching)."
+      ]
+    }
+  ],
+  "constraints": [
+    "Do not modify any files under frontend/src/components/ui (shadcn UI primitives are read-only).",
+    "Keep the existing single-page marketing layout and sticky header behavior intact."
+  ],
+  "nonGoals": [
+    "Do not change hero images, section content, navigation structure, or CTA copy.",
+    "Do not add backend functionality."
+  ],
+  "imageRequirements": {
+    "required": [],
+    "edits": []
+  }
+}

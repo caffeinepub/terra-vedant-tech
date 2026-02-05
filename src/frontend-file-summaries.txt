@@ -1,0 +1,20 @@
+{
+  "frontend/src/index.css": "Global styles with OKLCH color system using agriculture-themed greens and earth tones for both light and dark modes, avoiding blue/purple palettes.",
+  "frontend/tailwind.config.js": "Tailwind configuration with custom fonts (Poppins display, Inter sans), extended colors using OKLCH tokens, custom shadows, and fade-in animation.",
+  "frontend/src/content/marketingCopy.ts": "Centralized marketing copy for hero, about, services (6 offerings), and contact sections with professional agriculture technology messaging, including updated phone number (+91-8085204758), email (terravedanttech@gmail.com), and physical address (Block 4, Plot 13, Priyadarshini Parisar (West), Bhilai).",
+  "frontend/src/App.tsx": "Main application component composing the single-page marketing layout with header, hero, about, services, contact sections, and footer.",
+  "frontend/src/components/SiteHeader.tsx": "Responsive navigation header with enlarged Terra Vedant AI logo (IMG_20260205_151716-4.jpg) sized at h-20 mobile, h-24 md, h-28 lg, smooth-scroll links, mobile menu, and sticky behavior with increased header height to accommodate the larger logo.",
+  "frontend/src/components/sections/HeroSection.tsx": "Hero section with background image, headline, subheadline, dual CTAs, and smooth scroll functionality.",
+  "frontend/src/components/sections/AboutSection.tsx": "About section displaying company mission paragraph and three core values (sustainability, innovation, partnership) with icons.",
+  "frontend/src/components/sections/ServicesSection.tsx": "Services section rendering six agriculture technology offerings in a responsive card grid with icons and descriptions.",
+  "frontend/src/components/sections/ContactSection.tsx": "Contact section displaying contact information (email, location with full address, phone) with clickable mailto: and sanitized tel: links, alongside an embedded contact form.",
+  "frontend/src/components/ContactForm.tsx": "Client-validated contact form with name, email, and message fields, inline error display, and simulated submission with success/error states.",
+  "frontend/src/components/SiteFooter.tsx": "Footer with brand name (no logo), brand description, quick navigation links, social media icons, and attribution to caffeine.ai.",
+  "frontend/src/hooks/useQueries.ts": "Placeholder file for future React Query hooks when backend functionality is added.",
+  "frontend/vite.config.ts": "Vite configuration defining the @/ path alias, build output directory, and dev server port for the React application.",
+  "frontend/tsconfig.json": "TypeScript configuration with ES2020 target, strict mode, and path alias mapping for @/* to ./src/* for proper import resolution.",
+  "frontend/tsconfig.node.json": "TypeScript configuration for Vite config file with ESNext module resolution.",
+  "frontend/src/vite-env.d.ts": "Vite client type declarations reference for TypeScript.",
+  "frontend/DEPLOYMENT.md": "Production deployment guide with retry checklist, common build blockers, and root cause documentation explaining the missing path alias configuration that caused the prior deployment failure.",
+  "frontend/src/content/brandAssets.ts": "Centralized brand asset paths for consistent logo usage across the application, exporting constants for large and standard logo sizes."
+}

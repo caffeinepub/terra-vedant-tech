@@ -1,0 +1,24 @@
+{
+  "kind": "implementation_plan",
+  "version": "1.0",
+  "title": "Slightly increase sticky header branding logo size without layout issues",
+  "requirements": [
+    {
+      "id": "REQ-1",
+      "summary": "Increase the header branding logo size across responsive breakpoints while keeping the sticky header layout aligned and overflow-free.",
+      "acceptanceCriteria": [
+        "The logo image rendered in the header (frontend/src/components/SiteHeader.tsx, <img alt=\"Terra Vedant AI Logo\">) appears noticeably but only slightly larger than before on mobile, tablet, and desktop breakpoints.",
+        "The header layout remains vertically centered, and the logo does not overlap the brand name text or the desktop navigation/CTA.",
+        "No horizontal overflow is introduced at any viewport width (no unexpected x-scroll).",
+        "The logo remains crisp and maintains aspect ratio (no stretching)."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/components/SiteHeader.tsx",
+          "operation": "modify",
+          "description": "Adjust the <img alt=\"Terra Vedant AI Logo\"> Tailwind sizing classes to be slightly larger at mobile/tablet/desktop using safe arbitrary height values (keeping w-auto and object-contain for crisp aspect-ratio-safe rendering). Ensure surrounding header flex/layout classes continue to vertically center content and avoid any horizontal overflow or overlap with brand text/nav/CTA."
+        }
+      ]
+    }
+  ]
+}
