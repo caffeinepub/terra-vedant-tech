@@ -1,23 +1,4 @@
 {
   "kind": "feature_evidence_report",
-  "features": [
-    {
-      "featureId": "feature-increase-the-size-of-the-header-branding-image-in-the-sticky-siteheader-so-it-is-slightly-bigger-across-responsive-breakpoints-without-causing-layout-overflow-or-misalignment-in-the-header",
-      "featureTitle": "Increase the size of the header branding image in the sticky SiteHeader so it is slightly bigger across responsive breakpoints, without causing layout overflow or misalignment in the header.",
-      "files": [
-        "frontend/src/components/SiteHeader.tsx"
-      ],
-      "components": [
-        "core-infrastructure@1.0.2",
-        "shadcn-ui@1.0.0",
-        "build-template-react@1.0.0",
-        "initial-app@1.0.0",
-        "github-export-icp-cli@1.0.0"
-      ],
-      "testIds": [
-        "REQ-1"
-      ],
-      "confidence": "high"
-    }
-  ]
+  "features": []
 }

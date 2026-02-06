@@ -45,16 +45,16 @@ export function SiteHeader() {
       }`}
     >
       <div className="container mx-auto px-4">
-        <div className="flex items-center justify-between min-h-28 md:min-h-32 lg:min-h-36 py-3">
+        <div className="flex items-center justify-between min-h-32 md:min-h-40 lg:min-h-44 py-3">
           {/* Logo and Brand */}
           <button
             onClick={() => scrollToSection('hero')}
             className="flex items-center gap-3 hover:opacity-80 transition-opacity flex-shrink-0"
           >
             <img
-              src="/assets/IMG_20260205_151716-4.jpg"
+              src="/assets/IMG_20260206_153336-1.jpg"
               alt="Terra Vedant AI Logo"
-              className="h-20 w-auto object-contain md:h-24 lg:h-28"
+              className="h-25 w-auto object-contain md:h-30 lg:h-35"
             />
             <span className="font-display font-semibold text-lg md:text-xl lg:text-2xl text-foreground hidden sm:inline">
               Terra Vedant Tech

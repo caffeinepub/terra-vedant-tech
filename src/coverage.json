@@ -1,27 +1,15 @@
 {
   "kind": "coverage_report",
   "version": "1.0",
-  "generatedAt": "2026-02-05T14:04:44.537Z",
+  "generatedAt": "2026-02-06T10:14:32.057Z",
   "sources": {
     "buildRequest": true,
     "implementationPlan": true
   },
   "requirements": {
-    "total": 1,
-    "implemented": 1,
-    "items": [
-      {
-        "id": "REQ-1",
-        "summary": "Increase the size of the header branding image in the sticky SiteHeader so it is slightly bigger across responsive breakpoints, without causing layout overflow or misalignment in the header.",
-        "status": "implemented",
-        "plannedFiles": [
-          "frontend/src/components/SiteHeader.tsx"
-        ],
-        "matchedFiles": [
-          "frontend/src/components/SiteHeader.tsx"
-        ]
-      }
-    ]
+    "total": 0,
+    "implemented": 0,
+    "items": []
   },
   "changedFiles": [
     "build-request.json",
