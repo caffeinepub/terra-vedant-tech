@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Menu, X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { BRAND_ASSETS } from '@/content/brandAssets';
 
 export function SiteHeader() {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -45,16 +46,16 @@ export function SiteHeader() {
       }`}
     >
       <div className="container mx-auto px-4">
-        <div className="flex items-center justify-between min-h-32 md:min-h-40 lg:min-h-44 py-3">
+        <div className="flex items-center justify-between min-h-24 md:min-h-28 lg:min-h-32 py-3">
           {/* Logo and Brand */}
           <button
             onClick={() => scrollToSection('hero')}
             className="flex items-center gap-3 hover:opacity-80 transition-opacity flex-shrink-0"
           >
             <img
-              src="/assets/IMG_20260206_153336-1.jpg"
+              src={BRAND_ASSETS.logo.standard}
               alt="Terra Vedant AI Logo"
-              className="h-25 w-auto object-contain md:h-30 lg:h-35"
+              className="h-20 w-auto object-contain md:h-24 lg:h-28"
             />
             <span className="font-display font-semibold text-lg md:text-xl lg:text-2xl text-foreground hidden sm:inline">
               Terra Vedant Tech

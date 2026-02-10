@@ -3,7 +3,7 @@
   "frontend/tailwind.config.js": "Tailwind configuration with custom fonts (Poppins display, Inter sans), extended colors using OKLCH tokens, custom shadows, and fade-in animation.",
   "frontend/src/content/marketingCopy.ts": "Centralized marketing copy for hero, about, services (6 offerings), and contact sections with professional agriculture technology messaging, including updated phone number (+91-8085204758), email (terravedanttech@gmail.com), and physical address (Block 4, Plot 13, Priyadarshini Parisar (West), Bhilai).",
   "frontend/src/App.tsx": "Main application component composing the single-page marketing layout with header, hero, about, services, contact sections, and footer.",
-  "frontend/src/components/SiteHeader.tsx": "Responsive navigation header with Terra Vedant AI logo (IMG_20260206_153336-1.jpg) sized at h-25 mobile, h-30 md, h-35 lg (25% larger than previous), smooth-scroll links, mobile menu, and sticky behavior with increased header height to accommodate the larger logo.",
+  "frontend/src/components/SiteHeader.tsx": "Responsive navigation header with Terra Vedant AI logo (using BRAND_ASSETS.logo.standard) sized at h-20 mobile, h-24 md, h-28 lg (reverted to previous smaller size), smooth-scroll links, mobile menu, and sticky behavior with header height restored to previous proportions (min-h-24 md:min-h-28 lg:min-h-32).",
   "frontend/src/components/sections/HeroSection.tsx": "Hero section with background image, headline, subheadline, dual CTAs, and smooth scroll functionality.",
   "frontend/src/components/sections/AboutSection.tsx": "About section displaying company mission paragraph and three core values (sustainability, innovation, partnership) with icons.",
   "frontend/src/components/sections/ServicesSection.tsx": "Services section rendering six agriculture technology offerings in a responsive card grid with icons and descriptions.",
@@ -16,5 +16,5 @@
   "frontend/tsconfig.node.json": "TypeScript configuration for Vite config file with ESNext module resolution.",
   "frontend/src/vite-env.d.ts": "Vite client type declarations reference for TypeScript.",
   "frontend/DEPLOYMENT.md": "Production deployment guide with retry checklist, common build blockers, and root cause documentation explaining the missing path alias configuration that caused the prior deployment failure.",
-  "frontend/src/content/brandAssets.ts": "Centralized brand asset paths for consistent logo usage across the application, exporting constants for large and standard logo sizes."
+  "frontend/src/content/brandAssets.ts": "Centralized brand asset paths updated to reference the new Terra Vedant AI logo (terra-vedant-logo-new) in both 128x128 and 512x512 sizes for consistent usage across the application."
 }

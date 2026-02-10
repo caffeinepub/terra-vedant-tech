@@ -1,12 +1,69 @@
 {
   "kind": "build_request",
-  "title": "Untitled request",
+  "title": "Replace site logo with uploaded image",
   "priority": "normal",
-  "requirements": [],
-  "constraints": [],
-  "nonGoals": [],
+  "requirements": [
+    {
+      "id": "REQ-1",
+      "text": "Add the user-provided logo image as static assets under frontend/public/assets/generated in two sizes (128x128 and 512x512), optimized for web usage and preserving transparency if present.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-5"
+        ],
+        "quotes": [
+          "Pls replace the logo with this image"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Two new logo files exist in frontend/public/assets/generated with the specified filenames and dimensions.",
+        "The generated logo images look visually consistent with the uploaded image (same mark and text), with clean edges and no unexpected cropping.",
+        "The 128x128 version remains legible at small sizes (header use)."
+      ]
+    },
+    {
+      "id": "REQ-2",
+      "text": "Update frontend/src/content/brandAssets.ts to point BRAND_ASSETS.logo.standard and BRAND_ASSETS.logo.large to the newly added generated logo asset paths so the header (and any other logo usage) displays the new logo.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-5"
+        ],
+        "quotes": [
+          "Pls replace the logo with this image"
+        ]
+      },
+      "acceptanceCriteria": [
+        "BRAND_ASSETS.logo.standard references the new 128x128 logo asset path.",
+        "BRAND_ASSETS.logo.large references the new 512x512 logo asset path.",
+        "The header logo displayed in frontend/src/components/SiteHeader.tsx renders the new image without layout breakage (no overflow, no distortion, sizes unchanged)."
+      ]
+    }
+  ],
+  "constraints": [
+    "Do not modify files under frontend/src/components/ui (read-only).",
+    "Do not edit immutable hook files (frontend/src/hooks/useInternetIdentity.ts, frontend/src/hooks/useInternetIdentity.tsx, frontend/src/hooks/useActor.ts, frontend/src/main.tsx).",
+    "Keep backend unchanged (no Motoko changes required)."
+  ],
+  "nonGoals": [
+    "Do not change the site name text (e.g., \"Terra Vedant Tech\") or other marketing copy.",
+    "Do not redesign header layout, spacing, or navigation beyond what is necessary to swap the logo asset."
+  ],
   "imageRequirements": {
-    "required": [],
+    "required": [
+      "Square logo image with white background, based on the uploaded logo (terra-vedant-logo-new.dim_128x128.png)",
+      "Square logo image with white background, based on the uploaded logo (terra-vedant-logo-new.dim_512x512.png)"
+    ],
     "edits": []
+  },
+  "userProfileUpdate": {
+    "goalsToAdd": [],
+    "goalsToRemove": [],
+    "preferencesToAdd": [],
+    "preferencesToRemove": [],
+    "miscToAdd": [],
+    "miscToRemove": [],
+    "fieldsToSet": {},
+    "fieldsToDelete": []
   }
 }

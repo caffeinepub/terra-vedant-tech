@@ -1,6 +1,44 @@
 {
   "kind": "implementation_plan",
   "version": "1.0",
-  "title": "Untitled request",
-  "requirements": []
+  "title": "Swap site logo to new uploaded image",
+  "requirements": [
+    {
+      "id": "REQ-1",
+      "summary": "Add the uploaded logo as optimized static assets in 128x128 and 512x512 sizes under frontend/public/assets/generated.",
+      "acceptanceCriteria": [
+        "Two new logo files exist in frontend/public/assets/generated with the specified filenames and dimensions.",
+        "The generated logo images look visually consistent with the uploaded image (same mark and text), with clean edges and no unexpected cropping.",
+        "The 128x128 version remains legible at small sizes (header use)."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/public/assets/generated/terra-vedant-logo-new.dim_128x128.png",
+          "operation": "create",
+          "description": "Create an optimized 128x128 PNG logo derived from the user-provided image, preserving transparency if present, saved at this exact path/filename for header-sized usage."
+        },
+        {
+          "path": "frontend/public/assets/generated/terra-vedant-logo-new.dim_512x512.png",
+          "operation": "create",
+          "description": "Create an optimized 512x512 PNG logo derived from the user-provided image, preserving transparency if present, saved at this exact path/filename for large/logo usage."
+        }
+      ]
+    },
+    {
+      "id": "REQ-2",
+      "summary": "Update centralized brand asset references so all logo usages (including the header) render the new logo without layout changes.",
+      "acceptanceCriteria": [
+        "BRAND_ASSETS.logo.standard references the new 128x128 logo asset path.",
+        "BRAND_ASSETS.logo.large references the new 512x512 logo asset path.",
+        "The header logo displayed in frontend/src/components/SiteHeader.tsx renders the new image without layout breakage (no overflow, no distortion, sizes unchanged)."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/content/brandAssets.ts",
+          "operation": "modify",
+          "description": "Update BRAND_ASSETS.logo.standard to '/assets/generated/terra-vedant-logo-new.dim_128x128.png' and BRAND_ASSETS.logo.large to '/assets/generated/terra-vedant-logo-new.dim_512x512.png' so existing logo consumers (e.g., SiteHeader) automatically show the new logo."
+        }
+      ]
+    }
+  ]
 }

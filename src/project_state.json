@@ -1,28 +1,38 @@
 {
   "schemaVersion": "1.0.0",
   "projectStateVersion": 3,
-  "summary": "Project now includes a UI update request (increase logo size) and a communication requirement (route messages to a specified email inbox).",
-  "architectural_notes": [
-    "Email delivery feature is currently unavailable/disabled for the account; email routing request is blocked until email sending is enabled."
-  ],
+  "summary": "New project",
+  "architectural_notes": [],
   "known_issues": [],
   "isFixRequest": false,
-  "existing_features": [],
+  "imageRequirements": "## Required Images\n- Square logo image with white background, based on the uploaded logo (terra-vedant-logo-new.dim_128x128.png)\n- Square logo image with white background, based on the uploaded logo (terra-vedant-logo-new.dim_512x512.png)",
+  "existing_features": [
+    {
+      "id": "feature-add-the-user-provided-logo-image-as-static-assets-under-frontend-public-assets-generated-in-two-sizes-128x128-and-512x512-optimized-for-web-usage-and-preserving-transparency-if-present",
+      "title": "Add the user-provided logo image as static assets under frontend/public/assets/generated in two sizes (128x128 and 512x512), optimized for web usage and preserving transparency if present.",
+      "reqIds": [
+        "REQ-1"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-update-frontend-src-content-brandassets-ts-to-point-brand-assets-logo-standard-and-brand-assets-logo-large-to-the-newly-added-generated-logo-asset-paths-so-the-header-and-any-other-logo-usage-displays-the-new-logo",
+      "title": "Update frontend/src/content/brandAssets.ts to point BRAND_ASSETS.logo.standard and BRAND_ASSETS.logo.large to the newly added generated logo asset paths so the header (and any other logo usage) displays the new logo.",
+      "reqIds": [
+        "REQ-2"
+      ],
+      "version": 1
+    }
+  ],
   "new_feature_requests": [
     {
       "id": "AR-1",
-      "summary": "Increase the logo size by 25% (top-left logo)",
+      "summary": "Replace the app logo with the user-provided image",
       "reqIds": [],
-      "status": "in_progress"
-    },
-    {
-      "id": "AR-2",
-      "summary": "Route site/app messages to terravedanttech@gmail.com inbox (email delivery)",
-      "reqIds": [],
-      "status": "blocked"
+      "status": "pending"
     }
   ],
-  "projectName": "Untitled request",
+  "projectName": "Replace site logo with uploaded image",
   "clarification_mode": "instant",
   "clarification_rounds": 0
 }
