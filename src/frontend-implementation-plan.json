@@ -1,42 +1,55 @@
 {
   "kind": "implementation_plan",
   "version": "1.0",
-  "title": "Swap site logo to new uploaded image",
+  "title": "Replace site logo with Terravedant logo",
   "requirements": [
     {
       "id": "REQ-1",
-      "summary": "Add the uploaded logo as optimized static assets in 128x128 and 512x512 sizes under frontend/public/assets/generated.",
+      "summary": "Add optimized Terravedant logo static assets (128x128 and 512x512) under generated public assets.",
       "acceptanceCriteria": [
-        "Two new logo files exist in frontend/public/assets/generated with the specified filenames and dimensions.",
-        "The generated logo images look visually consistent with the uploaded image (same mark and text), with clean edges and no unexpected cropping.",
-        "The 128x128 version remains legible at small sizes (header use)."
+        "Two new image files exist at frontend/public/assets/generated/terravedant-logo.dim_128x128.png and frontend/public/assets/generated/terravedant-logo.dim_512x512.png.",
+        "The generated images are visually based on IMG-20260210-WA0045-1.jpg and are crisp at their target sizes."
       ],
       "file_operations": [
         {
-          "path": "frontend/public/assets/generated/terra-vedant-logo-new.dim_128x128.png",
+          "path": "frontend/public/assets/generated/terravedant-logo.dim_128x128.png",
           "operation": "create",
-          "description": "Create an optimized 128x128 PNG logo derived from the user-provided image, preserving transparency if present, saved at this exact path/filename for header-sized usage."
+          "description": "Create an optimized 128x128 PNG logo derived from IMG-20260210-WA0045-1.jpg, ensuring crisp edges and square framing."
         },
         {
-          "path": "frontend/public/assets/generated/terra-vedant-logo-new.dim_512x512.png",
+          "path": "frontend/public/assets/generated/terravedant-logo.dim_512x512.png",
           "operation": "create",
-          "description": "Create an optimized 512x512 PNG logo derived from the user-provided image, preserving transparency if present, saved at this exact path/filename for large/logo usage."
+          "description": "Create an optimized 512x512 PNG logo derived from IMG-20260210-WA0045-1.jpg, ensuring crisp edges and square framing."
         }
       ]
     },
     {
       "id": "REQ-2",
-      "summary": "Update centralized brand asset references so all logo usages (including the header) render the new logo without layout changes.",
+      "summary": "Point centralized brand logo paths to the new Terravedant generated assets.",
       "acceptanceCriteria": [
-        "BRAND_ASSETS.logo.standard references the new 128x128 logo asset path.",
-        "BRAND_ASSETS.logo.large references the new 512x512 logo asset path.",
-        "The header logo displayed in frontend/src/components/SiteHeader.tsx renders the new image without layout breakage (no overflow, no distortion, sizes unchanged)."
+        "BRAND_ASSETS.logo.standard equals '/assets/generated/terravedant-logo.dim_128x128.png'.",
+        "BRAND_ASSETS.logo.large equals '/assets/generated/terravedant-logo.dim_512x512.png'."
       ],
       "file_operations": [
         {
           "path": "frontend/src/content/brandAssets.ts",
           "operation": "modify",
-          "description": "Update BRAND_ASSETS.logo.standard to '/assets/generated/terra-vedant-logo-new.dim_128x128.png' and BRAND_ASSETS.logo.large to '/assets/generated/terra-vedant-logo-new.dim_512x512.png' so existing logo consumers (e.g., SiteHeader) automatically show the new logo."
+          "description": "Update BRAND_ASSETS.logo.standard and BRAND_ASSETS.logo.large to reference '/assets/generated/terravedant-logo.dim_128x128.png' and '/assets/generated/terravedant-logo.dim_512x512.png' respectively."
+        }
+      ]
+    },
+    {
+      "id": "REQ-3",
+      "summary": "Ensure the header renders the new logo via BRAND_ASSETS.logo.standard with stable, non-distorted layout across breakpoints.",
+      "acceptanceCriteria": [
+        "The header logo image displayed in frontend/src/components/SiteHeader.tsx updates to the new Terravedant logo after the asset/path changes.",
+        "Logo remains properly contained (no stretching/cropping) across breakpoints (sm, md, lg) with existing Tailwind classes."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/components/SiteHeader.tsx",
+          "operation": "modify",
+          "description": "Confirm the header <img> continues to source from BRAND_ASSETS.logo.standard and remains object-contained across breakpoints; add non-breaking image attributes (e.g., explicit width/height or decoding/loading hints) only if needed to prevent layout shift while preserving existing Tailwind sizing."
         }
       ]
     }

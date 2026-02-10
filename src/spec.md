@@ -1,10 +1,11 @@
 # Specification
 
 ## Summary
-**Goal:** Replace the site’s existing logo with the user-provided logo image.
+**Goal:** Replace the site’s current logo with the user-provided Terravedant logo across the app.
 
 **Planned changes:**
-- Add the user-provided logo as two optimized static assets (128x128 and 512x512) under `frontend/public/assets/generated`, preserving transparency if present.
+- Generate optimized square logo assets based on `IMG-20260210-WA0045-1.jpg` and add them under `frontend/public/assets/generated` in sizes 128x128 and 512x512.
 - Update `frontend/src/content/brandAssets.ts` so `BRAND_ASSETS.logo.standard` and `BRAND_ASSETS.logo.large` point to the new logo asset paths.
+- Ensure the site header uses `BRAND_ASSETS.logo.standard` and that the logo displays correctly on mobile and desktop without stretching/cropping.
 
-**User-visible outcome:** The header (and any other logo usage) displays the newly uploaded logo without distortion or layout changes.
+**User-visible outcome:** The website header displays the new Terravedant logo consistently across screen sizes.

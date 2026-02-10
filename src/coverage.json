@@ -1,31 +1,28 @@
 {
   "kind": "coverage_report",
   "version": "1.0",
-  "generatedAt": "2026-02-10T06:17:04.620Z",
+  "generatedAt": "2026-02-10T06:22:00.600Z",
   "sources": {
     "buildRequest": true,
     "implementationPlan": true
   },
   "requirements": {
-    "total": 2,
-    "implemented": 2,
+    "total": 3,
+    "implemented": 1,
     "items": [
       {
         "id": "REQ-1",
-        "summary": "Add the user-provided logo image as static assets under frontend/public/assets/generated in two sizes (128x128 and 512x512), optimized for web usage and preserving transparency if present.",
-        "status": "implemented",
+        "summary": "Add the user-uploaded Terravedant logo (IMG-20260210-WA0045-1.jpg) as optimized static logo assets under frontend/public/assets/generated in two sizes: 128x128 and 512x512.",
+        "status": "missing",
         "plannedFiles": [
-          "frontend/public/assets/generated/terra-vedant-logo-new.dim_128x128.png",
-          "frontend/public/assets/generated/terra-vedant-logo-new.dim_512x512.png"
+          "frontend/public/assets/generated/terravedant-logo.dim_128x128.png",
+          "frontend/public/assets/generated/terravedant-logo.dim_512x512.png"
         ],
-        "matchedFiles": [
-          "frontend/public/assets/generated/terra-vedant-logo-new.dim_128x128.png",
-          "frontend/public/assets/generated/terra-vedant-logo-new.dim_512x512.png"
-        ]
+        "matchedFiles": []
       },
       {
         "id": "REQ-2",
-        "summary": "Update frontend/src/content/brandAssets.ts to point BRAND_ASSETS.logo.standard and BRAND_ASSETS.logo.large to the newly added generated logo asset paths so the header (and any other logo usage) displays the new logo.",
+        "summary": "Update frontend/src/content/brandAssets.ts so BRAND_ASSETS.logo.standard and BRAND_ASSETS.logo.large point to the new Terravedant logo asset paths.",
         "status": "implemented",
         "plannedFiles": [
           "frontend/src/content/brandAssets.ts"
@@ -33,17 +30,25 @@
         "matchedFiles": [
           "frontend/src/content/brandAssets.ts"
         ]
+      },
+      {
+        "id": "REQ-3",
+        "summary": "Ensure the site header renders the new Terravedant logo using BRAND_ASSETS.logo.standard without layout regressions on mobile and desktop.",
+        "status": "missing",
+        "plannedFiles": [
+          "frontend/src/components/SiteHeader.tsx"
+        ],
+        "matchedFiles": []
       }
     ]
   },
   "changedFiles": [
     "build-request.json",
-    "caffeine.lock.json",
     "feature_evidence.json",
     "frontend-file-summaries.txt",
     "frontend-implementation-plan.json",
-    "frontend/public/assets/generated/terra-vedant-logo-new.dim_128x128.png",
-    "frontend/public/assets/generated/terra-vedant-logo-new.dim_512x512.png",
+    "frontend/public/assets/generated/terravedant-logo.dim_128x128.png, 128x128",
+    "frontend/public/assets/generated/terravedant-logo.dim_512x512.png, 512x512",
     "frontend/src/content/brandAssets.ts",
     "project_state.json",
     "scratch/component-selection.json",

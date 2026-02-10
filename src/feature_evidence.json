@@ -2,24 +2,8 @@
   "kind": "feature_evidence_report",
   "features": [
     {
-      "featureId": "feature-add-the-user-provided-logo-image-as-static-assets-under-frontend-public-assets-generated-in-two-sizes-128x128-and-512x512-optimized-for-web-usage-and-preserving-transparency-if-present",
-      "featureTitle": "Add the user-provided logo image as static assets under frontend/public/assets/generated in two sizes (128x128 and 512x512), optimized for web usage and preserving transparency if present.",
-      "files": [],
-      "components": [
-        "core-infrastructure@1.0.2",
-        "shadcn-ui@1.0.0",
-        "build-template-react@1.0.0",
-        "initial-app@1.0.0",
-        "github-export-icp-cli@1.0.0"
-      ],
-      "testIds": [
-        "REQ-1"
-      ],
-      "confidence": "high"
-    },
-    {
-      "featureId": "feature-update-frontend-src-content-brandassets-ts-to-point-brand-assets-logo-standard-and-brand-assets-logo-large-to-the-newly-added-generated-logo-asset-paths-so-the-header-and-any-other-logo-usage-displays-the-new-logo",
-      "featureTitle": "Update frontend/src/content/brandAssets.ts to point BRAND_ASSETS.logo.standard and BRAND_ASSETS.logo.large to the newly added generated logo asset paths so the header (and any other logo usage) displays the new logo.",
+      "featureId": "feature-update-frontend-src-content-brandassets-ts-so-brand-assets-logo-standard-and-brand-assets-logo-large-point-to-the-new-terravedant-logo-asset-paths",
+      "featureTitle": "Update frontend/src/content/brandAssets.ts so BRAND_ASSETS.logo.standard and BRAND_ASSETS.logo.large point to the new Terravedant logo asset paths.",
       "files": [
         "frontend/src/content/brandAssets.ts"
       ],

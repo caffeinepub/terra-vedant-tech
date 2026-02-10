@@ -1,58 +1,72 @@
 {
   "kind": "build_request",
-  "title": "Replace site logo with uploaded image",
+  "title": "Replace site logo with Terravedant logo",
   "priority": "normal",
   "requirements": [
     {
       "id": "REQ-1",
-      "text": "Add the user-provided logo image as static assets under frontend/public/assets/generated in two sizes (128x128 and 512x512), optimized for web usage and preserving transparency if present.",
+      "text": "Add the user-uploaded Terravedant logo (IMG-20260210-WA0045-1.jpg) as optimized static logo assets under frontend/public/assets/generated in two sizes: 128x128 and 512x512.",
       "target": "frontend",
       "source": {
         "messageIds": [
-          "msg-5"
+          "msg-4"
         ],
         "quotes": [
-          "Pls replace the logo with this image"
+          "The logo needs to be replaced with the terravedant logo"
         ]
       },
       "acceptanceCriteria": [
-        "Two new logo files exist in frontend/public/assets/generated with the specified filenames and dimensions.",
-        "The generated logo images look visually consistent with the uploaded image (same mark and text), with clean edges and no unexpected cropping.",
-        "The 128x128 version remains legible at small sizes (header use)."
+        "Two new image files exist at frontend/public/assets/generated/terravedant-logo.dim_128x128.png and frontend/public/assets/generated/terravedant-logo.dim_512x512.png.",
+        "The generated images are visually based on IMG-20260210-WA0045-1.jpg and are crisp at their target sizes."
       ]
     },
     {
       "id": "REQ-2",
-      "text": "Update frontend/src/content/brandAssets.ts to point BRAND_ASSETS.logo.standard and BRAND_ASSETS.logo.large to the newly added generated logo asset paths so the header (and any other logo usage) displays the new logo.",
+      "text": "Update frontend/src/content/brandAssets.ts so BRAND_ASSETS.logo.standard and BRAND_ASSETS.logo.large point to the new Terravedant logo asset paths.",
       "target": "frontend",
       "source": {
         "messageIds": [
-          "msg-5"
+          "msg-4"
         ],
         "quotes": [
-          "Pls replace the logo with this image"
+          "The logo needs to be replaced with the terravedant logo"
         ]
       },
       "acceptanceCriteria": [
-        "BRAND_ASSETS.logo.standard references the new 128x128 logo asset path.",
-        "BRAND_ASSETS.logo.large references the new 512x512 logo asset path.",
-        "The header logo displayed in frontend/src/components/SiteHeader.tsx renders the new image without layout breakage (no overflow, no distortion, sizes unchanged)."
+        "BRAND_ASSETS.logo.standard equals '/assets/generated/terravedant-logo.dim_128x128.png'.",
+        "BRAND_ASSETS.logo.large equals '/assets/generated/terravedant-logo.dim_512x512.png'."
+      ]
+    },
+    {
+      "id": "REQ-3",
+      "text": "Ensure the site header renders the new Terravedant logo using BRAND_ASSETS.logo.standard without layout regressions on mobile and desktop.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-4"
+        ],
+        "quotes": [
+          "The logo needs to be replaced with the terravedant logo"
+        ]
+      },
+      "acceptanceCriteria": [
+        "The header logo image displayed in frontend/src/components/SiteHeader.tsx updates to the new Terravedant logo after the asset/path changes.",
+        "Logo remains properly contained (no stretching/cropping) across breakpoints (sm, md, lg) with existing Tailwind classes."
       ]
     }
   ],
   "constraints": [
-    "Do not modify files under frontend/src/components/ui (read-only).",
-    "Do not edit immutable hook files (frontend/src/hooks/useInternetIdentity.ts, frontend/src/hooks/useInternetIdentity.tsx, frontend/src/hooks/useActor.ts, frontend/src/main.tsx).",
-    "Keep backend unchanged (no Motoko changes required)."
+    "Do not modify any files under frontend/src/components/ui (read-only).",
+    "Do not change immutable hook files under frontend/src/hooks (read-only)."
   ],
   "nonGoals": [
-    "Do not change the site name text (e.g., \"Terra Vedant Tech\") or other marketing copy.",
-    "Do not redesign header layout, spacing, or navigation beyond what is necessary to swap the logo asset."
+    "Changing marketing copy or other branding text (e.g., 'Terra Vedant Tech') unless explicitly requested.",
+    "Backend changes (no backend logo handling)."
   ],
   "imageRequirements": {
     "required": [
-      "Square logo image with white background, based on the uploaded logo (terra-vedant-logo-new.dim_128x128.png)",
-      "Square logo image with white background, based on the uploaded logo (terra-vedant-logo-new.dim_512x512.png)"
+      "Square Terravedant logo (terravedant-logo.dim_128x128.png, 128x128)",
+      "Square Terravedant logo (terravedant-logo.dim_512x512.png, 512x512)"
     ],
     "edits": []
   },

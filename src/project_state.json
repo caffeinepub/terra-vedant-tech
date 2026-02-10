@@ -4,20 +4,12 @@
   "summary": "New project",
   "architectural_notes": [],
   "known_issues": [],
-  "isFixRequest": false,
-  "imageRequirements": "## Required Images\n- Square logo image with white background, based on the uploaded logo (terra-vedant-logo-new.dim_128x128.png)\n- Square logo image with white background, based on the uploaded logo (terra-vedant-logo-new.dim_512x512.png)",
+  "isFixRequest": true,
+  "imageRequirements": "## Required Images\n- Square Terravedant logo (terravedant-logo.dim_128x128.png, 128x128)\n- Square Terravedant logo (terravedant-logo.dim_512x512.png, 512x512)",
   "existing_features": [
     {
-      "id": "feature-add-the-user-provided-logo-image-as-static-assets-under-frontend-public-assets-generated-in-two-sizes-128x128-and-512x512-optimized-for-web-usage-and-preserving-transparency-if-present",
-      "title": "Add the user-provided logo image as static assets under frontend/public/assets/generated in two sizes (128x128 and 512x512), optimized for web usage and preserving transparency if present.",
-      "reqIds": [
-        "REQ-1"
-      ],
-      "version": 1
-    },
-    {
-      "id": "feature-update-frontend-src-content-brandassets-ts-to-point-brand-assets-logo-standard-and-brand-assets-logo-large-to-the-newly-added-generated-logo-asset-paths-so-the-header-and-any-other-logo-usage-displays-the-new-logo",
-      "title": "Update frontend/src/content/brandAssets.ts to point BRAND_ASSETS.logo.standard and BRAND_ASSETS.logo.large to the newly added generated logo asset paths so the header (and any other logo usage) displays the new logo.",
+      "id": "feature-update-frontend-src-content-brandassets-ts-so-brand-assets-logo-standard-and-brand-assets-logo-large-point-to-the-new-terravedant-logo-asset-paths",
+      "title": "Update frontend/src/content/brandAssets.ts so BRAND_ASSETS.logo.standard and BRAND_ASSETS.logo.large point to the new Terravedant logo asset paths.",
       "reqIds": [
         "REQ-2"
       ],
@@ -27,12 +19,28 @@
   "new_feature_requests": [
     {
       "id": "AR-1",
-      "summary": "Replace the app logo with the user-provided image",
+      "summary": "Replace the current logo with the Terravedant logo",
       "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-2",
+      "summary": "Add the user-uploaded Terravedant logo (IMG-20260210-WA0045-1.jpg) as optimized static logo assets under frontend/public/assets/generated in two sizes: 128x128 and 512x512.",
+      "reqIds": [
+        "REQ-1"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "AR-4",
+      "summary": "Ensure the site header renders the new Terravedant logo using BRAND_ASSETS.logo.standard without layout regressions on mobile and desktop.",
+      "reqIds": [
+        "REQ-3"
+      ],
       "status": "pending"
     }
   ],
-  "projectName": "Replace site logo with uploaded image",
+  "projectName": "Replace site logo with Terravedant logo",
   "clarification_mode": "instant",
   "clarification_rounds": 0
 }
