@@ -1,55 +1,41 @@
 {
   "kind": "implementation_plan",
   "version": "1.0",
-  "title": "Replace site logo with Terravedant logo",
+  "title": "Fix Terra Vedant Tech header logo static asset paths and add resilient fallback rendering",
   "requirements": [
     {
       "id": "REQ-1",
-      "summary": "Add optimized Terravedant logo static assets (128x128 and 512x512) under generated public assets.",
+      "summary": "Ensure the Terra Vedant Tech logo PNGs exist under frontend public static assets with the exact filenames and casing used by the app.",
       "acceptanceCriteria": [
-        "Two new image files exist at frontend/public/assets/generated/terravedant-logo.dim_128x128.png and frontend/public/assets/generated/terravedant-logo.dim_512x512.png.",
-        "The generated images are visually based on IMG-20260210-WA0045-1.jpg and are crisp at their target sizes."
+        "`frontend/public/assets/generated/terravedant-logo.dim_128x128.png` exists in the repository/build output.",
+        "`frontend/public/assets/generated/terravedant-logo.dim_512x512.png` exists in the repository/build output.",
+        "Loading `/assets/generated/terravedant-logo.dim_128x128.png` directly in the browser returns HTTP 200 (not 404) in both local dev and deployed build."
       ],
       "file_operations": [
         {
           "path": "frontend/public/assets/generated/terravedant-logo.dim_128x128.png",
           "operation": "create",
-          "description": "Create an optimized 128x128 PNG logo derived from IMG-20260210-WA0045-1.jpg, ensuring crisp edges and square framing."
+          "description": "Add the required 128x128 square logo file at this exact path and filename/casing so `/assets/generated/terravedant-logo.dim_128x128.png` is served as a static asset."
         },
         {
           "path": "frontend/public/assets/generated/terravedant-logo.dim_512x512.png",
           "operation": "create",
-          "description": "Create an optimized 512x512 PNG logo derived from IMG-20260210-WA0045-1.jpg, ensuring crisp edges and square framing."
+          "description": "Add the required 512x512 square logo file at this exact path and filename/casing so `/assets/generated/terravedant-logo.dim_512x512.png` is served as a static asset."
         }
       ]
     },
     {
       "id": "REQ-2",
-      "summary": "Point centralized brand logo paths to the new Terravedant generated assets.",
+      "summary": "Make SiteHeader logo rendering resilient by adding an image load failure fallback (swap to large logo and/or text-only brand mark) without changing the header layout beyond what’s needed.",
       "acceptanceCriteria": [
-        "BRAND_ASSETS.logo.standard equals '/assets/generated/terravedant-logo.dim_128x128.png'.",
-        "BRAND_ASSETS.logo.large equals '/assets/generated/terravedant-logo.dim_512x512.png'."
-      ],
-      "file_operations": [
-        {
-          "path": "frontend/src/content/brandAssets.ts",
-          "operation": "modify",
-          "description": "Update BRAND_ASSETS.logo.standard and BRAND_ASSETS.logo.large to reference '/assets/generated/terravedant-logo.dim_128x128.png' and '/assets/generated/terravedant-logo.dim_512x512.png' respectively."
-        }
-      ]
-    },
-    {
-      "id": "REQ-3",
-      "summary": "Ensure the header renders the new logo via BRAND_ASSETS.logo.standard with stable, non-distorted layout across breakpoints.",
-      "acceptanceCriteria": [
-        "The header logo image displayed in frontend/src/components/SiteHeader.tsx updates to the new Terravedant logo after the asset/path changes.",
-        "Logo remains properly contained (no stretching/cropping) across breakpoints (sm, md, lg) with existing Tailwind classes."
+        "If `/assets/generated/terravedant-logo.dim_128x128.png` fails to load, the header still shows a visible brand mark (fallback image or text) without throwing runtime errors.",
+        "When the logo file exists, the image renders at all responsive breakpoints currently supported by the header (mobile, tablet, desktop)."
       ],
       "file_operations": [
         {
           "path": "frontend/src/components/SiteHeader.tsx",
           "operation": "modify",
-          "description": "Confirm the header <img> continues to source from BRAND_ASSETS.logo.standard and remains object-contained across breakpoints; add non-breaking image attributes (e.g., explicit width/height or decoding/loading hints) only if needed to prevent layout shift while preserving existing Tailwind sizing."
+          "description": "Add resilient logo rendering: implement `onError` handling to swap the `<img>` source from `BRAND_ASSETS.logo.standard` to `BRAND_ASSETS.logo.large`, and if that also fails render a text-only brand mark (or hide the broken image) to prevent a broken header while keeping asset references as absolute `/assets/...` paths."
         }
       ]
     }

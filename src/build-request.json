@@ -1,83 +1,57 @@
 {
   "kind": "build_request",
-  "title": "Replace site logo with Terravedant logo",
-  "priority": "normal",
+  "title": "Fix Terra Vedant Tech logo not displaying in the site header",
+  "priority": "high",
   "requirements": [
     {
       "id": "REQ-1",
-      "text": "Add the user-uploaded Terravedant logo (IMG-20260210-WA0045-1.jpg) as optimized static logo assets under frontend/public/assets/generated in two sizes: 128x128 and 512x512.",
+      "text": "Ensure the Terra Vedant Tech logo image files exist and are served from the exact static paths referenced by the app: `/assets/generated/terravedant-logo.dim_128x128.png` and `/assets/generated/terravedant-logo.dim_512x512.png` (i.e., placed under `frontend/public/assets/generated/` with those exact filenames and correct casing).",
       "target": "frontend",
       "source": {
         "messageIds": [
-          "msg-4"
+          "msg-1"
         ],
         "quotes": [
-          "The logo needs to be replaced with the terravedant logo"
+          "Logo is not displayed in the page"
         ]
       },
       "acceptanceCriteria": [
-        "Two new image files exist at frontend/public/assets/generated/terravedant-logo.dim_128x128.png and frontend/public/assets/generated/terravedant-logo.dim_512x512.png.",
-        "The generated images are visually based on IMG-20260210-WA0045-1.jpg and are crisp at their target sizes."
+        "`frontend/public/assets/generated/terravedant-logo.dim_128x128.png` exists in the repository/build output.",
+        "`frontend/public/assets/generated/terravedant-logo.dim_512x512.png` exists in the repository/build output.",
+        "Loading `/assets/generated/terravedant-logo.dim_128x128.png` directly in the browser returns HTTP 200 (not 404) in both local dev and deployed build."
       ]
     },
     {
       "id": "REQ-2",
-      "text": "Update frontend/src/content/brandAssets.ts so BRAND_ASSETS.logo.standard and BRAND_ASSETS.logo.large point to the new Terravedant logo asset paths.",
+      "text": "Add a resilient logo rendering behavior in `frontend/src/components/SiteHeader.tsx` so the header does not appear broken when the logo fails to load (e.g., add an `onError` fallback to swap to `BRAND_ASSETS.logo.large` and/or show a text-only brand mark if both fail).",
       "target": "frontend",
       "source": {
         "messageIds": [
-          "msg-4"
+          "msg-1"
         ],
         "quotes": [
-          "The logo needs to be replaced with the terravedant logo"
+          "Logo is not displayed in the page"
         ]
       },
       "acceptanceCriteria": [
-        "BRAND_ASSETS.logo.standard equals '/assets/generated/terravedant-logo.dim_128x128.png'.",
-        "BRAND_ASSETS.logo.large equals '/assets/generated/terravedant-logo.dim_512x512.png'."
-      ]
-    },
-    {
-      "id": "REQ-3",
-      "text": "Ensure the site header renders the new Terravedant logo using BRAND_ASSETS.logo.standard without layout regressions on mobile and desktop.",
-      "target": "frontend",
-      "source": {
-        "messageIds": [
-          "msg-4"
-        ],
-        "quotes": [
-          "The logo needs to be replaced with the terravedant logo"
-        ]
-      },
-      "acceptanceCriteria": [
-        "The header logo image displayed in frontend/src/components/SiteHeader.tsx updates to the new Terravedant logo after the asset/path changes.",
-        "Logo remains properly contained (no stretching/cropping) across breakpoints (sm, md, lg) with existing Tailwind classes."
+        "If `/assets/generated/terravedant-logo.dim_128x128.png` fails to load, the header still shows a visible brand mark (fallback image or text) without throwing runtime errors.",
+        "When the logo file exists, the image renders at all responsive breakpoints currently supported by the header (mobile, tablet, desktop)."
       ]
     }
   ],
   "constraints": [
-    "Do not modify any files under frontend/src/components/ui (read-only).",
-    "Do not change immutable hook files under frontend/src/hooks (read-only)."
+    "Do not modify any files under `frontend/src/hooks/useInternetIdentity.ts`, `frontend/src/hooks/useInternetIdentity.tsx`, `frontend/src/hooks/useActor.ts`, `frontend/src/main.tsx`, or anything inside `frontend/src/components/ui` (these are immutable).",
+    "Keep asset references as absolute paths starting with `/assets/...` (do not route images through the backend)."
   ],
   "nonGoals": [
-    "Changing marketing copy or other branding text (e.g., 'Terra Vedant Tech') unless explicitly requested.",
-    "Backend changes (no backend logo handling)."
+    "Do not change backend logic or add new backend features (logo display is a frontend/static-asset concern).",
+    "Do not redesign the site header layout beyond what is needed to make the logo reliably visible."
   ],
   "imageRequirements": {
     "required": [
-      "Square Terravedant logo (terravedant-logo.dim_128x128.png, 128x128)",
-      "Square Terravedant logo (terravedant-logo.dim_512x512.png, 512x512)"
+      "Square logo artwork on a clean background (terravedant-logo.dim_128x128.png, 128x128)",
+      "Square logo artwork on a clean background (terravedant-logo.dim_512x512.png, 512x512)"
     ],
     "edits": []
-  },
-  "userProfileUpdate": {
-    "goalsToAdd": [],
-    "goalsToRemove": [],
-    "preferencesToAdd": [],
-    "preferencesToRemove": [],
-    "miscToAdd": [],
-    "miscToRemove": [],
-    "fieldsToSet": {},
-    "fieldsToDelete": []
   }
 }

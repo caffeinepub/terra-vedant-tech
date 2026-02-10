@@ -6,6 +6,8 @@ import { BRAND_ASSETS } from '@/content/brandAssets';
 export function SiteHeader() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [logoSrc, setLogoSrc] = useState<string>(BRAND_ASSETS.logo.standard);
+  const [logoError, setLogoError] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -27,6 +29,16 @@ export function SiteHeader() {
         behavior: 'smooth'
       });
       setIsMobileMenuOpen(false);
+    }
+  };
+
+  const handleLogoError = () => {
+    // First fallback: try the larger logo
+    if (logoSrc === BRAND_ASSETS.logo.standard) {
+      setLogoSrc(BRAND_ASSETS.logo.large);
+    } else {
+      // Second fallback: mark as error to show text-only brand
+      setLogoError(true);
     }
   };
 
@@ -52,11 +64,20 @@ export function SiteHeader() {
             onClick={() => scrollToSection('hero')}
             className="flex items-center gap-3 hover:opacity-80 transition-opacity flex-shrink-0"
           >
-            <img
-              src={BRAND_ASSETS.logo.standard}
-              alt="Terra Vedant AI Logo"
-              className="h-20 w-auto object-contain md:h-24 lg:h-28"
-            />
+            {!logoError ? (
+              <img
+                src={logoSrc}
+                alt="Terra Vedant Tech"
+                className="h-20 w-auto object-contain md:h-24 lg:h-28"
+                onError={handleLogoError}
+              />
+            ) : (
+              <div className="h-20 w-20 md:h-24 md:w-24 lg:h-28 lg:w-28 bg-primary/10 rounded-lg flex items-center justify-center">
+                <span className="text-2xl md:text-3xl lg:text-4xl font-display font-bold text-primary">
+                  TV
+                </span>
+              </div>
+            )}
             <span className="font-display font-semibold text-lg md:text-xl lg:text-2xl text-foreground hidden sm:inline">
               Terra Vedant Tech
             </span>

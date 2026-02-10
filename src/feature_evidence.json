@@ -2,10 +2,10 @@
   "kind": "feature_evidence_report",
   "features": [
     {
-      "featureId": "feature-update-frontend-src-content-brandassets-ts-so-brand-assets-logo-standard-and-brand-assets-logo-large-point-to-the-new-terravedant-logo-asset-paths",
-      "featureTitle": "Update frontend/src/content/brandAssets.ts so BRAND_ASSETS.logo.standard and BRAND_ASSETS.logo.large point to the new Terravedant logo asset paths.",
+      "featureId": "feature-add-a-resilient-logo-rendering-behavior-in-frontend-src-components-siteheader-tsx-so-the-header-does-not-appear-broken-when-the-logo-fails-to-load-e-g-add-an-onerror-fallback-to-swap-to-brand-assets-logo-large-and-or-show-a-text-only-brand-mark-if-both-fail",
+      "featureTitle": "Add a resilient logo rendering behavior in `frontend/src/components/SiteHeader.tsx` so the header does not appear broken when the logo fails to load (e.g., add an `onError` fallback to swap to `BRAND_ASSETS.logo.large` and/or show a text-only brand mark if both fail).",
       "files": [
-        "frontend/src/content/brandAssets.ts"
+        "frontend/src/components/SiteHeader.tsx"
       ],
       "components": [
         "core-infrastructure@1.0.2",

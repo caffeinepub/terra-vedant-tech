@@ -3,13 +3,15 @@
   "projectStateVersion": 3,
   "summary": "New project",
   "architectural_notes": [],
-  "known_issues": [],
+  "known_issues": [
+    "Terra Vedant Tech logo is not displayed on the page (regression in latest live/draft build)."
+  ],
   "isFixRequest": true,
-  "imageRequirements": "## Required Images\n- Square Terravedant logo (terravedant-logo.dim_128x128.png, 128x128)\n- Square Terravedant logo (terravedant-logo.dim_512x512.png, 512x512)",
+  "imageRequirements": "## Required Images\n- Square logo artwork on a clean background (terravedant-logo.dim_128x128.png, 128x128)\n- Square logo artwork on a clean background (terravedant-logo.dim_512x512.png, 512x512)",
   "existing_features": [
     {
-      "id": "feature-update-frontend-src-content-brandassets-ts-so-brand-assets-logo-standard-and-brand-assets-logo-large-point-to-the-new-terravedant-logo-asset-paths",
-      "title": "Update frontend/src/content/brandAssets.ts so BRAND_ASSETS.logo.standard and BRAND_ASSETS.logo.large point to the new Terravedant logo asset paths.",
+      "id": "feature-add-a-resilient-logo-rendering-behavior-in-frontend-src-components-siteheader-tsx-so-the-header-does-not-appear-broken-when-the-logo-fails-to-load-e-g-add-an-onerror-fallback-to-swap-to-brand-assets-logo-large-and-or-show-a-text-only-brand-mark-if-both-fail",
+      "title": "Add a resilient logo rendering behavior in `frontend/src/components/SiteHeader.tsx` so the header does not appear broken when the logo fails to load (e.g., add an `onError` fallback to swap to `BRAND_ASSETS.logo.large` and/or show a text-only brand mark if both fail).",
       "reqIds": [
         "REQ-2"
       ],
@@ -19,28 +21,14 @@
   "new_feature_requests": [
     {
       "id": "AR-1",
-      "summary": "Replace the current logo with the Terravedant logo",
-      "reqIds": [],
-      "status": "pending"
-    },
-    {
-      "id": "AR-2",
-      "summary": "Add the user-uploaded Terravedant logo (IMG-20260210-WA0045-1.jpg) as optimized static logo assets under frontend/public/assets/generated in two sizes: 128x128 and 512x512.",
+      "summary": "Ensure the Terra Vedant Tech logo image files exist and are served from the exact static paths referenced by the app: `/assets/generated/terravedant-logo.dim_128x128.png` and `/assets/generated/terravedant-logo.dim_512x512.png` (i.e., placed under `frontend/public/assets/generated/` with those exact filenames and correct casing).",
       "reqIds": [
         "REQ-1"
       ],
       "status": "pending"
-    },
-    {
-      "id": "AR-4",
-      "summary": "Ensure the site header renders the new Terravedant logo using BRAND_ASSETS.logo.standard without layout regressions on mobile and desktop.",
-      "reqIds": [
-        "REQ-3"
-      ],
-      "status": "pending"
     }
   ],
-  "projectName": "Replace site logo with Terravedant logo",
+  "projectName": "Fix Terra Vedant Tech logo not displaying in the site header",
   "clarification_mode": "instant",
   "clarification_rounds": 0
 }

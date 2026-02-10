@@ -1,18 +1,18 @@
 {
   "kind": "coverage_report",
   "version": "1.0",
-  "generatedAt": "2026-02-10T06:22:00.600Z",
+  "generatedAt": "2026-02-10T06:32:51.814Z",
   "sources": {
     "buildRequest": true,
     "implementationPlan": true
   },
   "requirements": {
-    "total": 3,
+    "total": 2,
     "implemented": 1,
     "items": [
       {
         "id": "REQ-1",
-        "summary": "Add the user-uploaded Terravedant logo (IMG-20260210-WA0045-1.jpg) as optimized static logo assets under frontend/public/assets/generated in two sizes: 128x128 and 512x512.",
+        "summary": "Ensure the Terra Vedant Tech logo image files exist and are served from the exact static paths referenced by the app: `/assets/generated/terravedant-logo.dim_128x128.png` and `/assets/generated/terravedant-logo.dim_512x512.png` (i.e., placed under `frontend/public/assets/generated/` with those exact filenames and correct casing).",
         "status": "missing",
         "plannedFiles": [
           "frontend/public/assets/generated/terravedant-logo.dim_128x128.png",
@@ -22,23 +22,14 @@
       },
       {
         "id": "REQ-2",
-        "summary": "Update frontend/src/content/brandAssets.ts so BRAND_ASSETS.logo.standard and BRAND_ASSETS.logo.large point to the new Terravedant logo asset paths.",
+        "summary": "Add a resilient logo rendering behavior in `frontend/src/components/SiteHeader.tsx` so the header does not appear broken when the logo fails to load (e.g., add an `onError` fallback to swap to `BRAND_ASSETS.logo.large` and/or show a text-only brand mark if both fail).",
         "status": "implemented",
-        "plannedFiles": [
-          "frontend/src/content/brandAssets.ts"
-        ],
-        "matchedFiles": [
-          "frontend/src/content/brandAssets.ts"
-        ]
-      },
-      {
-        "id": "REQ-3",
-        "summary": "Ensure the site header renders the new Terravedant logo using BRAND_ASSETS.logo.standard without layout regressions on mobile and desktop.",
-        "status": "missing",
         "plannedFiles": [
           "frontend/src/components/SiteHeader.tsx"
         ],
-        "matchedFiles": []
+        "matchedFiles": [
+          "frontend/src/components/SiteHeader.tsx"
+        ]
       }
     ]
   },
@@ -49,7 +40,7 @@
     "frontend-implementation-plan.json",
     "frontend/public/assets/generated/terravedant-logo.dim_128x128.png, 128x128",
     "frontend/public/assets/generated/terravedant-logo.dim_512x512.png, 512x512",
-    "frontend/src/content/brandAssets.ts",
+    "frontend/src/components/SiteHeader.tsx",
     "project_state.json",
     "scratch/component-selection.json",
     "spec.md",
