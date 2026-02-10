@@ -1,41 +1,82 @@
 {
   "kind": "implementation_plan",
   "version": "1.0",
-  "title": "Fix Terra Vedant Tech header logo static asset paths and add resilient fallback rendering",
+  "title": "Production publish readiness (frontend build, assets, and deploy verification)",
   "requirements": [
     {
       "id": "REQ-1",
-      "summary": "Ensure the Terra Vedant Tech logo PNGs exist under frontend public static assets with the exact filenames and casing used by the app.",
+      "summary": "Ensure production preflight checks pass, the frontend builds successfully, and all UI-referenced static assets exist at absolute /assets/... paths (including header logo).",
       "acceptanceCriteria": [
-        "`frontend/public/assets/generated/terravedant-logo.dim_128x128.png` exists in the repository/build output.",
-        "`frontend/public/assets/generated/terravedant-logo.dim_512x512.png` exists in the repository/build output.",
-        "Loading `/assets/generated/terravedant-logo.dim_128x128.png` directly in the browser returns HTTP 200 (not 404) in both local dev and deployed build."
+        "`pnpm typescript-check` completes with no TypeScript errors.",
+        "`pnpm build:skip-bindings` completes successfully.",
+        "All referenced static assets load in the production build (no 404s for `/assets/...`, including `/assets/IMG-20260210-WA0045-4.jpg` and any `/assets/generated/...` paths used by the app)."
       ],
       "file_operations": [
         {
-          "path": "frontend/public/assets/generated/terravedant-logo.dim_128x128.png",
-          "operation": "create",
-          "description": "Add the required 128x128 square logo file at this exact path and filename/casing so `/assets/generated/terravedant-logo.dim_128x128.png` is served as a static asset."
+          "path": "frontend/src/content/brandAssets.ts",
+          "operation": "modify",
+          "description": "Fix any incorrect static asset references so logo paths match real files under frontend/public/assets/... and remain absolute /assets/... (notably align the generated logo filenames with the existing terra-vedant-*.png assets)."
         },
         {
-          "path": "frontend/public/assets/generated/terravedant-logo.dim_512x512.png",
+          "path": "frontend/public/assets/IMG-20260210-WA0045-4.jpg",
           "operation": "create",
-          "description": "Add the required 512x512 square logo file at this exact path and filename/casing so `/assets/generated/terravedant-logo.dim_512x512.png` is served as a static asset."
+          "description": "Add the header logo image file at the exact path required by the UI (`/assets/IMG-20260210-WA0045-4.jpg`) so production build does not 404."
+        },
+        {
+          "path": "frontend/public/assets/generated/terra-vedant-logo.dim_128x128.png",
+          "operation": "create",
+          "description": "Ensure the generated standard logo asset exists at this exact path for production (/assets/generated/terra-vedant-logo.dim_128x128.png)."
+        },
+        {
+          "path": "frontend/public/assets/generated/terra-vedant-logo.dim_512x512.png",
+          "operation": "create",
+          "description": "Ensure the generated large logo asset exists at this exact path for production (/assets/generated/terra-vedant-logo.dim_512x512.png)."
+        },
+        {
+          "path": "frontend/public/assets/generated/terra-vedant-tech-hero-bg.dim_1600x900.png",
+          "operation": "create",
+          "description": "Ensure the hero background image exists at this exact path so the hero section does not 404 in production (/assets/generated/terra-vedant-tech-hero-bg.dim_1600x900.png)."
+        },
+        {
+          "path": "frontend/DEPLOYMENT.md",
+          "operation": "modify",
+          "description": "Update the deployment guide to include an explicit production preflight checklist covering `pnpm typescript-check`, `pnpm build:skip-bindings`, and verification that all `/assets/...` references used by the UI (including `/assets/IMG-20260210-WA0045-4.jpg` and `/assets/generated/...`) exist in frontend/public/assets before building. Also reference the selected components build-template-react and github-export-icp-cli as the source of build/deploy conventions; verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/scripts/verify-assets.ts",
+          "operation": "create",
+          "description": "Add a small preflight script that scans known UI asset constants and key UI source files for `/assets/` string literals and verifies the corresponding files exist under frontend/public (failing the script if any are missing), to prevent production 404s."
         }
       ]
     },
     {
       "id": "REQ-2",
-      "summary": "Make SiteHeader logo rendering resilient by adding an image load failure fallback (swap to large logo and/or text-only brand mark) without changing the header layout beyond what’s needed.",
+      "summary": "Support production deployment verification by ensuring the deployed site renders reliably (no blank screen), and the header brand text + logo render correctly in production.",
       "acceptanceCriteria": [
-        "If `/assets/generated/terravedant-logo.dim_128x128.png` fails to load, the header still shows a visible brand mark (fallback image or text) without throwing runtime errors.",
-        "When the logo file exists, the image renders at all responsive breakpoints currently supported by the header (mobile, tablet, desktop)."
+        "Production deployment completes without errors.",
+        "On the production URL, the site loads without a blank screen and without critical console errors.",
+        "The site header shows the brand text and the header logo image renders (not broken)."
       ],
       "file_operations": [
         {
+          "path": "frontend/src/components/ProductionErrorBoundary.tsx",
+          "operation": "create",
+          "description": "Add a lightweight React error boundary with a minimal fallback UI to prevent a blank screen if an unexpected render error occurs in production."
+        },
+        {
+          "path": "frontend/src/App.tsx",
+          "operation": "modify",
+          "description": "Wrap the existing single-page layout (header, sections, footer) in the new ProductionErrorBoundary so production rendering failures show a fallback instead of a blank screen."
+        },
+        {
           "path": "frontend/src/components/SiteHeader.tsx",
           "operation": "modify",
-          "description": "Add resilient logo rendering: implement `onError` handling to swap the `<img>` source from `BRAND_ASSETS.logo.standard` to `BRAND_ASSETS.logo.large`, and if that also fails render a text-only brand mark (or hide the broken image) to prevent a broken header while keeping asset references as absolute `/assets/...` paths."
+          "description": "Harden header logo rendering for production by ensuring it uses the centralized BRAND_ASSETS path (absolute /assets/...) and includes a safe, non-empty alt text; keep the existing shadcn-ui Button usage composed as-is (do not edit files under frontend/src/components/ui). Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/DEPLOYMENT.md",
+          "operation": "modify",
+          "description": "Add a production verification section with steps to confirm the deployed URL renders header/sections/footer, confirm the header shows brand text, and confirm the header logo loads (no broken image) and that the console has no critical errors. Also reference the selected component github-export-icp-cli for Internet Computer deployment workflow; verify the component's usage instructions before implementing."
         }
       ]
     }

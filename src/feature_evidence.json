@@ -2,9 +2,32 @@
   "kind": "feature_evidence_report",
   "features": [
     {
-      "featureId": "feature-add-a-resilient-logo-rendering-behavior-in-frontend-src-components-siteheader-tsx-so-the-header-does-not-appear-broken-when-the-logo-fails-to-load-e-g-add-an-onerror-fallback-to-swap-to-brand-assets-logo-large-and-or-show-a-text-only-brand-mark-if-both-fail",
-      "featureTitle": "Add a resilient logo rendering behavior in `frontend/src/components/SiteHeader.tsx` so the header does not appear broken when the logo fails to load (e.g., add an `onError` fallback to swap to `BRAND_ASSETS.logo.large` and/or show a text-only brand mark if both fail).",
+      "featureId": "feature-run-the-production-preflight-checks-and-build-for-the-current-app-version-ensuring-the-frontend-compiles-and-all-static-assets-referenced-by-the-ui-exist-at-the-correct-absolute-assets-paths-including-the-header-logo",
+      "featureTitle": "Run the production preflight checks and build for the current app version, ensuring the frontend compiles and all static assets referenced by the UI exist at the correct absolute /assets/... paths (including the header logo).",
       "files": [
+        "frontend/DEPLOYMENT.md",
+        "frontend/scripts/verify-assets.ts",
+        "frontend/src/content/brandAssets.ts"
+      ],
+      "components": [
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-1"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-deploy-the-successfully-built-frontend-to-production-on-the-internet-computer-and-verify-the-deployed-site-renders-correctly-header-sections-and-footer-with-the-logo-visible-in-the-site-header",
+      "featureTitle": "Deploy the successfully built frontend to production on the Internet Computer and verify the deployed site renders correctly (header, sections, and footer) with the logo visible in the site header.",
+      "files": [
+        "frontend/DEPLOYMENT.md",
+        "frontend/src/App.tsx",
+        "frontend/src/components/ProductionErrorBoundary.tsx",
         "frontend/src/components/SiteHeader.tsx"
       ],
       "components": [

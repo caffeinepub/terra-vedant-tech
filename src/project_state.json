@@ -3,32 +3,28 @@
   "projectStateVersion": 3,
   "summary": "New project",
   "architectural_notes": [],
-  "known_issues": [
-    "Terra Vedant Tech logo is not displayed on the page (regression in latest live/draft build)."
-  ],
-  "isFixRequest": true,
-  "imageRequirements": "## Required Images\n- Square logo artwork on a clean background (terravedant-logo.dim_128x128.png, 128x128)\n- Square logo artwork on a clean background (terravedant-logo.dim_512x512.png, 512x512)",
+  "known_issues": [],
+  "isFixRequest": false,
   "existing_features": [
     {
-      "id": "feature-add-a-resilient-logo-rendering-behavior-in-frontend-src-components-siteheader-tsx-so-the-header-does-not-appear-broken-when-the-logo-fails-to-load-e-g-add-an-onerror-fallback-to-swap-to-brand-assets-logo-large-and-or-show-a-text-only-brand-mark-if-both-fail",
-      "title": "Add a resilient logo rendering behavior in `frontend/src/components/SiteHeader.tsx` so the header does not appear broken when the logo fails to load (e.g., add an `onError` fallback to swap to `BRAND_ASSETS.logo.large` and/or show a text-only brand mark if both fail).",
+      "id": "feature-run-the-production-preflight-checks-and-build-for-the-current-app-version-ensuring-the-frontend-compiles-and-all-static-assets-referenced-by-the-ui-exist-at-the-correct-absolute-assets-paths-including-the-header-logo",
+      "title": "Run the production preflight checks and build for the current app version, ensuring the frontend compiles and all static assets referenced by the UI exist at the correct absolute /assets/... paths (including the header logo).",
+      "reqIds": [
+        "REQ-1"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-deploy-the-successfully-built-frontend-to-production-on-the-internet-computer-and-verify-the-deployed-site-renders-correctly-header-sections-and-footer-with-the-logo-visible-in-the-site-header",
+      "title": "Deploy the successfully built frontend to production on the Internet Computer and verify the deployed site renders correctly (header, sections, and footer) with the logo visible in the site header.",
       "reqIds": [
         "REQ-2"
       ],
       "version": 1
     }
   ],
-  "new_feature_requests": [
-    {
-      "id": "AR-1",
-      "summary": "Ensure the Terra Vedant Tech logo image files exist and are served from the exact static paths referenced by the app: `/assets/generated/terravedant-logo.dim_128x128.png` and `/assets/generated/terravedant-logo.dim_512x512.png` (i.e., placed under `frontend/public/assets/generated/` with those exact filenames and correct casing).",
-      "reqIds": [
-        "REQ-1"
-      ],
-      "status": "pending"
-    }
-  ],
-  "projectName": "Fix Terra Vedant Tech logo not displaying in the site header",
+  "new_feature_requests": [],
+  "projectName": "Publish current app version to production",
   "clarification_mode": "instant",
   "clarification_rounds": 0
 }

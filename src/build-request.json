@@ -1,57 +1,57 @@
 {
   "kind": "build_request",
-  "title": "Fix Terra Vedant Tech logo not displaying in the site header",
-  "priority": "high",
+  "title": "Publish current app version to production",
+  "priority": "normal",
   "requirements": [
     {
       "id": "REQ-1",
-      "text": "Ensure the Terra Vedant Tech logo image files exist and are served from the exact static paths referenced by the app: `/assets/generated/terravedant-logo.dim_128x128.png` and `/assets/generated/terravedant-logo.dim_512x512.png` (i.e., placed under `frontend/public/assets/generated/` with those exact filenames and correct casing).",
+      "text": "Run the production preflight checks and build for the current app version, ensuring the frontend compiles and all static assets referenced by the UI exist at the correct absolute /assets/... paths (including the header logo).",
       "target": "frontend",
       "source": {
         "messageIds": [
           "msg-1"
         ],
         "quotes": [
-          "Logo is not displayed in the page"
+          "Publish it"
         ]
       },
       "acceptanceCriteria": [
-        "`frontend/public/assets/generated/terravedant-logo.dim_128x128.png` exists in the repository/build output.",
-        "`frontend/public/assets/generated/terravedant-logo.dim_512x512.png` exists in the repository/build output.",
-        "Loading `/assets/generated/terravedant-logo.dim_128x128.png` directly in the browser returns HTTP 200 (not 404) in both local dev and deployed build."
+        "`pnpm typescript-check` completes with no TypeScript errors.",
+        "`pnpm build:skip-bindings` completes successfully.",
+        "All referenced static assets load in the production build (no 404s for `/assets/...`, including `/assets/IMG-20260210-WA0045-4.jpg` and any `/assets/generated/...` paths used by the app)."
       ]
     },
     {
       "id": "REQ-2",
-      "text": "Add a resilient logo rendering behavior in `frontend/src/components/SiteHeader.tsx` so the header does not appear broken when the logo fails to load (e.g., add an `onError` fallback to swap to `BRAND_ASSETS.logo.large` and/or show a text-only brand mark if both fail).",
-      "target": "frontend",
+      "text": "Deploy the successfully built frontend to production on the Internet Computer and verify the deployed site renders correctly (header, sections, and footer) with the logo visible in the site header.",
+      "target": "both",
       "source": {
         "messageIds": [
           "msg-1"
         ],
         "quotes": [
-          "Logo is not displayed in the page"
+          "Publish it"
         ]
       },
       "acceptanceCriteria": [
-        "If `/assets/generated/terravedant-logo.dim_128x128.png` fails to load, the header still shows a visible brand mark (fallback image or text) without throwing runtime errors.",
-        "When the logo file exists, the image renders at all responsive breakpoints currently supported by the header (mobile, tablet, desktop)."
+        "Production deployment completes without errors.",
+        "On the production URL, the site loads without a blank screen and without critical console errors.",
+        "The site header shows the brand text and the header logo image renders (not broken)."
       ]
     }
   ],
   "constraints": [
-    "Do not modify any files under `frontend/src/hooks/useInternetIdentity.ts`, `frontend/src/hooks/useInternetIdentity.tsx`, `frontend/src/hooks/useActor.ts`, `frontend/src/main.tsx`, or anything inside `frontend/src/components/ui` (these are immutable).",
-    "Keep asset references as absolute paths starting with `/assets/...` (do not route images through the backend)."
+    "Do not edit files under `frontend/src/components/ui` (compose them as-is).",
+    "Do not edit immutable hook entrypoints: `frontend/src/hooks/useInternetIdentity.ts`, `frontend/src/hooks/useInternetIdentity.tsx`, `frontend/src/hooks/useActor.ts`, `frontend/src/main.tsx`.",
+    "Keep backend as a single Motoko actor; add `backend/migration.mo` only if a state upgrade is required."
   ],
   "nonGoals": [
-    "Do not change backend logic or add new backend features (logo display is a frontend/static-asset concern).",
-    "Do not redesign the site header layout beyond what is needed to make the logo reliably visible."
+    "Adding new product features or changing marketing copy.",
+    "Redesigning the layout or theming beyond what is necessary to ensure a successful production build and deployment.",
+    "Implementing new backend logic (the backend can remain empty if not required for publishing)."
   ],
   "imageRequirements": {
-    "required": [
-      "Square logo artwork on a clean background (terravedant-logo.dim_128x128.png, 128x128)",
-      "Square logo artwork on a clean background (terravedant-logo.dim_512x512.png, 512x512)"
-    ],
+    "required": [],
     "edits": []
   }
 }

@@ -1,34 +1,49 @@
 {
   "kind": "coverage_report",
   "version": "1.0",
-  "generatedAt": "2026-02-10T06:32:51.814Z",
+  "generatedAt": "2026-02-10T10:20:14.938Z",
   "sources": {
     "buildRequest": true,
     "implementationPlan": true
   },
   "requirements": {
     "total": 2,
-    "implemented": 1,
+    "implemented": 2,
     "items": [
       {
         "id": "REQ-1",
-        "summary": "Ensure the Terra Vedant Tech logo image files exist and are served from the exact static paths referenced by the app: `/assets/generated/terravedant-logo.dim_128x128.png` and `/assets/generated/terravedant-logo.dim_512x512.png` (i.e., placed under `frontend/public/assets/generated/` with those exact filenames and correct casing).",
-        "status": "missing",
+        "summary": "Run the production preflight checks and build for the current app version, ensuring the frontend compiles and all static assets referenced by the UI exist at the correct absolute /assets/... paths (including the header logo).",
+        "status": "implemented",
         "plannedFiles": [
-          "frontend/public/assets/generated/terravedant-logo.dim_128x128.png",
-          "frontend/public/assets/generated/terravedant-logo.dim_512x512.png"
+          "frontend/src/content/brandAssets.ts",
+          "frontend/public/assets/IMG-20260210-WA0045-4.jpg",
+          "frontend/public/assets/generated/terra-vedant-logo.dim_128x128.png",
+          "frontend/public/assets/generated/terra-vedant-logo.dim_512x512.png",
+          "frontend/public/assets/generated/terra-vedant-tech-hero-bg.dim_1600x900.png",
+          "frontend/DEPLOYMENT.md",
+          "frontend/scripts/verify-assets.ts"
         ],
-        "matchedFiles": []
+        "matchedFiles": [
+          "frontend/src/content/brandAssets.ts",
+          "frontend/DEPLOYMENT.md",
+          "frontend/scripts/verify-assets.ts"
+        ]
       },
       {
         "id": "REQ-2",
-        "summary": "Add a resilient logo rendering behavior in `frontend/src/components/SiteHeader.tsx` so the header does not appear broken when the logo fails to load (e.g., add an `onError` fallback to swap to `BRAND_ASSETS.logo.large` and/or show a text-only brand mark if both fail).",
+        "summary": "Deploy the successfully built frontend to production on the Internet Computer and verify the deployed site renders correctly (header, sections, and footer) with the logo visible in the site header.",
         "status": "implemented",
         "plannedFiles": [
-          "frontend/src/components/SiteHeader.tsx"
+          "frontend/src/components/ProductionErrorBoundary.tsx",
+          "frontend/src/App.tsx",
+          "frontend/src/components/SiteHeader.tsx",
+          "frontend/DEPLOYMENT.md"
         ],
         "matchedFiles": [
-          "frontend/src/components/SiteHeader.tsx"
+          "frontend/src/components/ProductionErrorBoundary.tsx",
+          "frontend/src/App.tsx",
+          "frontend/src/components/SiteHeader.tsx",
+          "frontend/DEPLOYMENT.md"
         ]
       }
     ]
@@ -38,9 +53,12 @@
     "feature_evidence.json",
     "frontend-file-summaries.txt",
     "frontend-implementation-plan.json",
-    "frontend/public/assets/generated/terravedant-logo.dim_128x128.png, 128x128",
-    "frontend/public/assets/generated/terravedant-logo.dim_512x512.png, 512x512",
+    "frontend/DEPLOYMENT.md",
+    "frontend/scripts/verify-assets.ts",
+    "frontend/src/App.tsx",
+    "frontend/src/components/ProductionErrorBoundary.tsx",
     "frontend/src/components/SiteHeader.tsx",
+    "frontend/src/content/brandAssets.ts",
     "project_state.json",
     "scratch/component-selection.json",
     "spec.md",
