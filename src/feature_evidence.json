@@ -2,12 +2,10 @@
   "kind": "feature_evidence_report",
   "features": [
     {
-      "featureId": "feature-run-the-production-preflight-checks-and-build-for-the-current-app-version-ensuring-the-frontend-compiles-and-all-static-assets-referenced-by-the-ui-exist-at-the-correct-absolute-assets-paths-including-the-header-logo",
-      "featureTitle": "Run the production preflight checks and build for the current app version, ensuring the frontend compiles and all static assets referenced by the UI exist at the correct absolute /assets/... paths (including the header logo).",
+      "featureId": "feature-increase-the-visual-size-of-the-siteheader-and-its-brand-logo-while-preserving-the-current-responsive-behavior-mobile-vs-md-and-overall-layout-logo-brand-text-nav-cta-mobile-menu",
+      "featureTitle": "Increase the visual size of the SiteHeader and its brand logo while preserving the current responsive behavior (mobile vs. md+) and overall layout (logo + brand text + nav + CTA + mobile menu).",
       "files": [
-        "frontend/DEPLOYMENT.md",
-        "frontend/scripts/verify-assets.ts",
-        "frontend/src/content/brandAssets.ts"
+        "frontend/src/components/SiteHeader.tsx"
       ],
       "components": [
         "core-infrastructure@1.0.2",
@@ -22,13 +20,12 @@
       "confidence": "high"
     },
     {
-      "featureId": "feature-deploy-the-successfully-built-frontend-to-production-on-the-internet-computer-and-verify-the-deployed-site-renders-correctly-header-sections-and-footer-with-the-logo-visible-in-the-site-header",
-      "featureTitle": "Deploy the successfully built frontend to production on the Internet Computer and verify the deployed site renders correctly (header, sections, and footer) with the logo visible in the site header.",
+      "featureId": "feature-add-a-production-publish-readiness-flow-ensure-there-is-a-documented-repeatable-preflight-deploy-procedure-and-that-the-preflight-checks-typescript-compile-required-static-asset-verification-can-be-run-successfully-before-publishing",
+      "featureTitle": "Add a production publish readiness flow: ensure there is a documented, repeatable preflight + deploy procedure and that the preflight checks (TypeScript compile + required static asset verification) can be run successfully before publishing.",
       "files": [
         "frontend/DEPLOYMENT.md",
-        "frontend/src/App.tsx",
-        "frontend/src/components/ProductionErrorBoundary.tsx",
-        "frontend/src/components/SiteHeader.tsx"
+        "frontend/scripts/preflight-production.ts",
+        "frontend/scripts/verify-assets.ts"
       ],
       "components": [
         "core-infrastructure@1.0.2",

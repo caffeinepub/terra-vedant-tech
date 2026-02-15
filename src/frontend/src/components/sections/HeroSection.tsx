@@ -1,22 +1,9 @@
 import { ArrowRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { heroContent } from '../../content/marketingCopy';
+import { scrollToSection } from '@/lib/scrollToSection';
 
 export function HeroSection() {
-  const scrollToSection = (sectionId: string) => {
-    const element = document.getElementById(sectionId);
-    if (element) {
-      const offset = 80;
-      const elementPosition = element.getBoundingClientRect().top;
-      const offsetPosition = elementPosition + window.pageYOffset - offset;
-      
-      window.scrollTo({
-        top: offsetPosition,
-        behavior: 'smooth'
-      });
-    }
-  };
-
   return (
     <section
       id="hero"
@@ -71,4 +58,3 @@ export function HeroSection() {
     </section>
   );
 }
-

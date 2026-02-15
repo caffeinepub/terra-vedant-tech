@@ -1,82 +1,54 @@
 {
   "kind": "implementation_plan",
   "version": "1.0",
-  "title": "Production publish readiness (frontend build, assets, and deploy verification)",
+  "title": "Production publish readiness + larger header/logo",
   "requirements": [
     {
       "id": "REQ-1",
-      "summary": "Ensure production preflight checks pass, the frontend builds successfully, and all UI-referenced static assets exist at absolute /assets/... paths (including header logo).",
+      "summary": "Increase SiteHeader height and enlarge brand logo while keeping current responsive layout and smooth-scroll/mobile menu behavior.",
       "acceptanceCriteria": [
-        "`pnpm typescript-check` completes with no TypeScript errors.",
-        "`pnpm build:skip-bindings` completes successfully.",
-        "All referenced static assets load in the production build (no 404s for `/assets/...`, including `/assets/IMG-20260210-WA0045-4.jpg` and any `/assets/generated/...` paths used by the app)."
+        "On mobile, the header bar is visibly taller than the current h-20 implementation and does not clip content.",
+        "On md+ breakpoints, the header bar is visibly taller than the current md:h-24 implementation and does not clip content.",
+        "The header logo image renders larger than the current h-[44px] (mobile) and md:h-[53px] (md+) values, without changing the underlying image file path.",
+        "Desktop navigation and CTA remain aligned and do not wrap/collide with the logo/brand text at typical viewport widths (e.g., 1024px+).",
+        "Mobile menu open/close behavior and smooth-scroll behavior continue to work correctly after the header size change (scroll offset accounts for the new header height)."
       ],
       "file_operations": [
         {
-          "path": "frontend/src/content/brandAssets.ts",
+          "path": "frontend/src/components/SiteHeader.tsx",
           "operation": "modify",
-          "description": "Fix any incorrect static asset references so logo paths match real files under frontend/public/assets/... and remain absolute /assets/... (notably align the generated logo filenames with the existing terra-vedant-*.png assets)."
+          "description": "Increase header bar vertical sizing (mobile and md+) and enlarge the existing header logo via Tailwind classes (do not change BRAND_ASSETS.logo.header). Prefer min-height + padding adjustments to avoid clipping. Ensure desktop nav/CTA alignment remains stable at 1024px+ widths and that mobile menu toggling still closes before invoking scrollToSection. Verify the component's usage instructions before implementing."
         },
         {
-          "path": "frontend/public/assets/IMG-20260210-WA0045-4.jpg",
-          "operation": "create",
-          "description": "Add the header logo image file at the exact path required by the UI (`/assets/IMG-20260210-WA0045-4.jpg`) so production build does not 404."
-        },
-        {
-          "path": "frontend/public/assets/generated/terra-vedant-logo.dim_128x128.png",
-          "operation": "create",
-          "description": "Ensure the generated standard logo asset exists at this exact path for production (/assets/generated/terra-vedant-logo.dim_128x128.png)."
-        },
-        {
-          "path": "frontend/public/assets/generated/terra-vedant-logo.dim_512x512.png",
-          "operation": "create",
-          "description": "Ensure the generated large logo asset exists at this exact path for production (/assets/generated/terra-vedant-logo.dim_512x512.png)."
-        },
-        {
-          "path": "frontend/public/assets/generated/terra-vedant-tech-hero-bg.dim_1600x900.png",
-          "operation": "create",
-          "description": "Ensure the hero background image exists at this exact path so the hero section does not 404 in production (/assets/generated/terra-vedant-tech-hero-bg.dim_1600x900.png)."
-        },
-        {
-          "path": "frontend/DEPLOYMENT.md",
+          "path": "frontend/src/lib/scrollToSection.ts",
           "operation": "modify",
-          "description": "Update the deployment guide to include an explicit production preflight checklist covering `pnpm typescript-check`, `pnpm build:skip-bindings`, and verification that all `/assets/...` references used by the UI (including `/assets/IMG-20260210-WA0045-4.jpg` and `/assets/generated/...`) exist in frontend/public/assets before building. Also reference the selected components build-template-react and github-export-icp-cli as the source of build/deploy conventions; verify the component's usage instructions before implementing."
-        },
-        {
-          "path": "frontend/scripts/verify-assets.ts",
-          "operation": "create",
-          "description": "Add a small preflight script that scans known UI asset constants and key UI source files for `/assets/` string literals and verifies the corresponding files exist under frontend/public (failing the script if any are missing), to prevent production 404s."
+          "description": "Confirm smooth-scroll offset remains correct after header height changes by continuing to derive offset from runtime header height; adjust buffer/measurement timing only if needed to prevent under/over-scrolling when mobile menu closes. Verify the component's usage instructions before implementing."
         }
       ]
     },
     {
       "id": "REQ-2",
-      "summary": "Support production deployment verification by ensuring the deployed site renders reliably (no blank screen), and the header brand text + logo render correctly in production.",
+      "summary": "Provide a documented, repeatable production preflight + deploy procedure, with runnable preflight checks for TypeScript compilation and required static assets.",
       "acceptanceCriteria": [
-        "Production deployment completes without errors.",
-        "On the production URL, the site loads without a blank screen and without critical console errors.",
-        "The site header shows the brand text and the header logo image renders (not broken)."
+        "A developer can follow frontend/DEPLOYMENT.md to run production preflight checks and perform a production deployment to the Internet Computer.",
+        "Running the production preflight runner fails with a non-zero exit code if TypeScript compilation fails or required static assets are missing, and succeeds (exit code 0) when all checks pass.",
+        "DEPLOYMENT.md includes a post-deployment verification checklist that covers at least: header rendering across breakpoints, hero background rendering, navigation scroll offset correctness, and no missing asset 404s in production."
       ],
       "file_operations": [
         {
-          "path": "frontend/src/components/ProductionErrorBoundary.tsx",
-          "operation": "create",
-          "description": "Add a lightweight React error boundary with a minimal fallback UI to prevent a blank screen if an unexpected render error occurs in production."
-        },
-        {
-          "path": "frontend/src/App.tsx",
-          "operation": "modify",
-          "description": "Wrap the existing single-page layout (header, sections, footer) in the new ProductionErrorBoundary so production rendering failures show a fallback instead of a blank screen."
-        },
-        {
-          "path": "frontend/src/components/SiteHeader.tsx",
-          "operation": "modify",
-          "description": "Harden header logo rendering for production by ensuring it uses the centralized BRAND_ASSETS path (absolute /assets/...) and includes a safe, non-empty alt text; keep the existing shadcn-ui Button usage composed as-is (do not edit files under frontend/src/components/ui). Verify the component's usage instructions before implementing."
-        },
-        {
           "path": "frontend/DEPLOYMENT.md",
           "operation": "modify",
-          "description": "Add a production verification section with steps to confirm the deployed URL renders header/sections/footer, confirm the header shows brand text, and confirm the header logo loads (no broken image) and that the console has no critical errors. Also reference the selected component github-export-icp-cli for Internet Computer deployment workflow; verify the component's usage instructions before implementing."
+          "description": "Complete and expand the deployment guide into a clear, repeatable procedure: prerequisites (dfx, Node), how to run the production preflight runner, build steps, and Internet Computer deployment steps aligned with the repository’s ICP CLI setup. Include a post-deployment verification checklist covering: header sizing across breakpoints, hero background rendering, navigation scroll offset correctness, and checking for missing assets/404s. Reference that the repo uses the github-export-icp-cli template to support ICP deployment workflow; verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/scripts/preflight-production.ts",
+          "operation": "modify",
+          "description": "Harden the preflight runner to be reliably repeatable from a developer machine (clearer output, consistent working directory expectations, and guaranteed non-zero exit when checks fail). Keep checks limited to TypeScript compilation and required static asset verification per requirements."
+        },
+        {
+          "path": "frontend/scripts/verify-assets.ts",
+          "operation": "modify",
+          "description": "Ensure required static asset verification matches current app asset usage (header logo, generated logos, hero background) and produces actionable error output with non-zero exit on missing files. Keep scope strictly to verification (no asset generation or uploads)."
         }
       ]
     }

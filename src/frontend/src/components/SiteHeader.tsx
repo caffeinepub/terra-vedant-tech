@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { Menu, X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { BRAND_ASSETS } from '@/content/brandAssets';
+import { scrollToSection } from '@/lib/scrollToSection';
 
 export function SiteHeader() {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -15,19 +16,14 @@ export function SiteHeader() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const scrollToSection = (sectionId: string) => {
-    const element = document.getElementById(sectionId);
-    if (element) {
-      const offset = 100;
-      const elementPosition = element.getBoundingClientRect().top;
-      const offsetPosition = elementPosition + window.pageYOffset - offset;
-      
-      window.scrollTo({
-        top: offsetPosition,
-        behavior: 'smooth'
-      });
-      setIsMobileMenuOpen(false);
-    }
+  const handleNavClick = (sectionId: string) => {
+    // Close mobile menu first to ensure correct header height measurement
+    setIsMobileMenuOpen(false);
+    
+    // Use requestAnimationFrame to ensure menu close completes before scroll
+    requestAnimationFrame(() => {
+      scrollToSection(sectionId);
+    });
   };
 
   const navLinks = [
@@ -46,28 +42,28 @@ export function SiteHeader() {
       }`}
     >
       <div className="container mx-auto px-4">
-        <div className="flex items-center justify-between h-20 py-3">
+        <div className="flex items-center justify-between min-h-[88px] md:min-h-[104px] py-4 md:py-5">
           {/* Brand Logo and Text */}
           <button
-            onClick={() => scrollToSection('hero')}
-            className="flex items-center gap-3 hover:opacity-80 transition-opacity flex-shrink-0"
+            onClick={() => handleNavClick('hero')}
+            className="flex items-center gap-2 md:gap-3 hover:opacity-80 transition-opacity flex-shrink-0"
           >
             <img 
               src={BRAND_ASSETS.logo.header} 
               alt="Terra Vedant Tech - Agriculture Technology Solutions" 
-              className="h-12 w-auto object-contain"
+              className="h-[56px] md:h-[68px] w-auto object-contain"
             />
-            <span className="font-display font-semibold text-lg md:text-xl lg:text-2xl text-foreground">
+            <span className="font-display font-semibold text-xl md:text-2xl lg:text-3xl text-foreground">
               Terra Vedant Tech
             </span>
           </button>
 
           {/* Desktop Navigation */}
-          <nav className="hidden md:flex items-center gap-6 lg:gap-8">
+          <nav className="hidden md:flex items-center gap-4 lg:gap-6">
             {navLinks.map((link) => (
               <button
                 key={link.id}
-                onClick={() => scrollToSection(link.id)}
+                onClick={() => handleNavClick(link.id)}
                 className="text-sm font-medium text-foreground/80 hover:text-primary transition-colors whitespace-nowrap"
               >
                 {link.label}
@@ -78,7 +74,8 @@ export function SiteHeader() {
           {/* Desktop CTA */}
           <div className="hidden md:block flex-shrink-0">
             <Button
-              onClick={() => scrollToSection('contact')}
+              onClick={() => handleNavClick('contact')}
+              size="default"
               className="bg-primary hover:bg-primary/90 text-primary-foreground"
             >
               Get Started
@@ -88,7 +85,7 @@ export function SiteHeader() {
           {/* Mobile Menu Button */}
           <button
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            className="md:hidden p-2 text-foreground hover:text-primary transition-colors flex-shrink-0"
+            className="md:hidden p-1.5 text-foreground hover:text-primary transition-colors flex-shrink-0"
             aria-label="Toggle menu"
           >
             {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
@@ -102,15 +99,16 @@ export function SiteHeader() {
               {navLinks.map((link) => (
                 <button
                   key={link.id}
-                  onClick={() => scrollToSection(link.id)}
-                  className="text-left px-4 py-2 text-foreground/80 hover:text-primary hover:bg-muted rounded-md transition-colors"
+                  onClick={() => handleNavClick(link.id)}
+                  className="text-left px-4 py-2 text-base text-foreground/80 hover:text-primary hover:bg-muted rounded-md transition-colors"
                 >
                   {link.label}
                 </button>
               ))}
               <div className="px-4 pt-2">
                 <Button
-                  onClick={() => scrollToSection('contact')}
+                  onClick={() => handleNavClick('contact')}
+                  size="default"
                   className="w-full bg-primary hover:bg-primary/90 text-primary-foreground"
                 >
                   Get Started

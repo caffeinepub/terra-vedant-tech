@@ -1,30 +1,45 @@
 {
   "schemaVersion": "1.0.0",
   "projectStateVersion": 3,
-  "summary": "New project",
+  "summary": "Draft app redeployed (Version 32). User requested larger header/logo and to publish the app; builds are failing due to an internal configuration error.",
   "architectural_notes": [],
-  "known_issues": [],
+  "known_issues": [
+    "Build/publish fails due to internal configuration error; may require Caffeine team support"
+  ],
   "isFixRequest": false,
   "existing_features": [
     {
-      "id": "feature-run-the-production-preflight-checks-and-build-for-the-current-app-version-ensuring-the-frontend-compiles-and-all-static-assets-referenced-by-the-ui-exist-at-the-correct-absolute-assets-paths-including-the-header-logo",
-      "title": "Run the production preflight checks and build for the current app version, ensuring the frontend compiles and all static assets referenced by the UI exist at the correct absolute /assets/... paths (including the header logo).",
+      "id": "feature-increase-the-visual-size-of-the-siteheader-and-its-brand-logo-while-preserving-the-current-responsive-behavior-mobile-vs-md-and-overall-layout-logo-brand-text-nav-cta-mobile-menu",
+      "title": "Increase the visual size of the SiteHeader and its brand logo while preserving the current responsive behavior (mobile vs. md+) and overall layout (logo + brand text + nav + CTA + mobile menu).",
       "reqIds": [
         "REQ-1"
       ],
       "version": 1
     },
     {
-      "id": "feature-deploy-the-successfully-built-frontend-to-production-on-the-internet-computer-and-verify-the-deployed-site-renders-correctly-header-sections-and-footer-with-the-logo-visible-in-the-site-header",
-      "title": "Deploy the successfully built frontend to production on the Internet Computer and verify the deployed site renders correctly (header, sections, and footer) with the logo visible in the site header.",
+      "id": "feature-add-a-production-publish-readiness-flow-ensure-there-is-a-documented-repeatable-preflight-deploy-procedure-and-that-the-preflight-checks-typescript-compile-required-static-asset-verification-can-be-run-successfully-before-publishing",
+      "title": "Add a production publish readiness flow: ensure there is a documented, repeatable preflight + deploy procedure and that the preflight checks (TypeScript compile + required static asset verification) can be run successfully before publishing.",
       "reqIds": [
         "REQ-2"
       ],
       "version": 1
     }
   ],
-  "new_feature_requests": [],
-  "projectName": "Publish current app version to production",
+  "new_feature_requests": [
+    {
+      "id": "AR-1",
+      "summary": "Increase the size of the header and logo",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-2",
+      "summary": "Publish the app to production",
+      "reqIds": [],
+      "status": "pending"
+    }
+  ],
+  "projectName": "Prepare production publish and enlarge header/logo",
   "clarification_mode": "instant",
   "clarification_rounds": 0
 }

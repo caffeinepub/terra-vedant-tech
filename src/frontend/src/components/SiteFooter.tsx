@@ -1,22 +1,15 @@
 import { SiLinkedin, SiX, SiFacebook } from 'react-icons/si';
 import { Heart } from 'lucide-react';
+import { scrollToSection } from '@/lib/scrollToSection';
 
 export function SiteFooter() {
   const currentYear = new Date().getFullYear();
-
-  const scrollToSection = (sectionId: string) => {
-    const element = document.getElementById(sectionId);
-    if (element) {
-      const offset = 80;
-      const elementPosition = element.getBoundingClientRect().top;
-      const offsetPosition = elementPosition + window.pageYOffset - offset;
-      
-      window.scrollTo({
-        top: offsetPosition,
-        behavior: 'smooth'
-      });
-    }
-  };
+  
+  // Generate UTM-tracked caffeine.ai link
+  const appIdentifier = typeof window !== 'undefined' 
+    ? encodeURIComponent(window.location.hostname)
+    : 'terra-vedant-tech';
+  const caffeineLink = `https://caffeine.ai/?utm_source=Caffeine-footer&utm_medium=referral&utm_content=${appIdentifier}`;
 
   return (
     <footer className="bg-muted/50 border-t">
@@ -40,13 +33,18 @@ export function SiteFooter() {
               Quick Links
             </h3>
             <ul className="space-y-2">
-              {['Home', 'About', 'Services', 'Contact'].map((link) => (
-                <li key={link}>
+              {[
+                { label: 'Home', id: 'hero' },
+                { label: 'About', id: 'about' },
+                { label: 'Services', id: 'services' },
+                { label: 'Contact', id: 'contact' }
+              ].map((link) => (
+                <li key={link.id}>
                   <button
-                    onClick={() => scrollToSection(link.toLowerCase())}
+                    onClick={() => scrollToSection(link.id)}
                     className="text-muted-foreground hover:text-primary transition-colors text-sm"
                   >
-                    {link}
+                    {link.label}
                   </button>
                 </li>
               ))}
@@ -93,7 +91,7 @@ export function SiteFooter() {
             <p className="flex items-center gap-1">
               Built with <Heart className="w-4 h-4 text-destructive fill-destructive" /> using{' '}
               <a
-                href="https://caffeine.ai"
+                href={caffeineLink}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-primary hover:underline"

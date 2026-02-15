@@ -1,7 +1,7 @@
 {
   "kind": "coverage_report",
   "version": "1.0",
-  "generatedAt": "2026-02-10T10:20:14.938Z",
+  "generatedAt": "2026-02-13T04:03:44.732Z",
   "sources": {
     "buildRequest": true,
     "implementationPlan": true
@@ -12,38 +12,29 @@
     "items": [
       {
         "id": "REQ-1",
-        "summary": "Run the production preflight checks and build for the current app version, ensuring the frontend compiles and all static assets referenced by the UI exist at the correct absolute /assets/... paths (including the header logo).",
+        "summary": "Increase the visual size of the SiteHeader and its brand logo while preserving the current responsive behavior (mobile vs. md+) and overall layout (logo + brand text + nav + CTA + mobile menu).",
         "status": "implemented",
         "plannedFiles": [
-          "frontend/src/content/brandAssets.ts",
-          "frontend/public/assets/IMG-20260210-WA0045-4.jpg",
-          "frontend/public/assets/generated/terra-vedant-logo.dim_128x128.png",
-          "frontend/public/assets/generated/terra-vedant-logo.dim_512x512.png",
-          "frontend/public/assets/generated/terra-vedant-tech-hero-bg.dim_1600x900.png",
-          "frontend/DEPLOYMENT.md",
-          "frontend/scripts/verify-assets.ts"
+          "frontend/src/components/SiteHeader.tsx",
+          "frontend/src/lib/scrollToSection.ts"
         ],
         "matchedFiles": [
-          "frontend/src/content/brandAssets.ts",
-          "frontend/DEPLOYMENT.md",
-          "frontend/scripts/verify-assets.ts"
+          "frontend/src/components/SiteHeader.tsx"
         ]
       },
       {
         "id": "REQ-2",
-        "summary": "Deploy the successfully built frontend to production on the Internet Computer and verify the deployed site renders correctly (header, sections, and footer) with the logo visible in the site header.",
+        "summary": "Add a production publish readiness flow: ensure there is a documented, repeatable preflight + deploy procedure and that the preflight checks (TypeScript compile + required static asset verification) can be run successfully before publishing.",
         "status": "implemented",
         "plannedFiles": [
-          "frontend/src/components/ProductionErrorBoundary.tsx",
-          "frontend/src/App.tsx",
-          "frontend/src/components/SiteHeader.tsx",
-          "frontend/DEPLOYMENT.md"
+          "frontend/DEPLOYMENT.md",
+          "frontend/scripts/preflight-production.ts",
+          "frontend/scripts/verify-assets.ts"
         ],
         "matchedFiles": [
-          "frontend/src/components/ProductionErrorBoundary.tsx",
-          "frontend/src/App.tsx",
-          "frontend/src/components/SiteHeader.tsx",
-          "frontend/DEPLOYMENT.md"
+          "frontend/DEPLOYMENT.md",
+          "frontend/scripts/preflight-production.ts",
+          "frontend/scripts/verify-assets.ts"
         ]
       }
     ]
@@ -54,11 +45,9 @@
     "frontend-file-summaries.txt",
     "frontend-implementation-plan.json",
     "frontend/DEPLOYMENT.md",
+    "frontend/scripts/preflight-production.ts",
     "frontend/scripts/verify-assets.ts",
-    "frontend/src/App.tsx",
-    "frontend/src/components/ProductionErrorBoundary.tsx",
     "frontend/src/components/SiteHeader.tsx",
-    "frontend/src/content/brandAssets.ts",
     "project_state.json",
     "scratch/component-selection.json",
     "spec.md",

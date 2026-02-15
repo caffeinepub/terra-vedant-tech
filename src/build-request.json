@@ -1,54 +1,56 @@
 {
   "kind": "build_request",
-  "title": "Publish current app version to production",
+  "title": "Prepare production publish and enlarge header/logo",
   "priority": "normal",
   "requirements": [
     {
       "id": "REQ-1",
-      "text": "Run the production preflight checks and build for the current app version, ensuring the frontend compiles and all static assets referenced by the UI exist at the correct absolute /assets/... paths (including the header logo).",
+      "text": "Increase the visual size of the SiteHeader and its brand logo while preserving the current responsive behavior (mobile vs. md+) and overall layout (logo + brand text + nav + CTA + mobile menu).",
       "target": "frontend",
       "source": {
         "messageIds": [
-          "msg-1"
+          "msg-6"
         ],
         "quotes": [
-          "Publish it"
+          "Increase the size of the header and logo"
         ]
       },
       "acceptanceCriteria": [
-        "`pnpm typescript-check` completes with no TypeScript errors.",
-        "`pnpm build:skip-bindings` completes successfully.",
-        "All referenced static assets load in the production build (no 404s for `/assets/...`, including `/assets/IMG-20260210-WA0045-4.jpg` and any `/assets/generated/...` paths used by the app)."
+        "On mobile, the header bar is visibly taller than the current h-20 implementation and does not clip content.",
+        "On md+ breakpoints, the header bar is visibly taller than the current md:h-24 implementation and does not clip content.",
+        "The header logo image renders larger than the current h-[44px] (mobile) and md:h-[53px] (md+) values, without changing the underlying image file path.",
+        "Desktop navigation and CTA remain aligned and do not wrap/collide with the logo/brand text at typical viewport widths (e.g., 1024px+).",
+        "Mobile menu open/close behavior and smooth-scroll behavior continue to work correctly after the header size change (scroll offset accounts for the new header height)."
       ]
     },
     {
       "id": "REQ-2",
-      "text": "Deploy the successfully built frontend to production on the Internet Computer and verify the deployed site renders correctly (header, sections, and footer) with the logo visible in the site header.",
-      "target": "both",
+      "text": "Add a production publish readiness flow: ensure there is a documented, repeatable preflight + deploy procedure and that the preflight checks (TypeScript compile + required static asset verification) can be run successfully before publishing.",
+      "target": "frontend",
       "source": {
         "messageIds": [
-          "msg-1"
+          "msg-20"
         ],
         "quotes": [
           "Publish it"
         ]
       },
       "acceptanceCriteria": [
-        "Production deployment completes without errors.",
-        "On the production URL, the site loads without a blank screen and without critical console errors.",
-        "The site header shows the brand text and the header logo image renders (not broken)."
+        "A developer can follow frontend/DEPLOYMENT.md to run production preflight checks and perform a production deployment to the Internet Computer.",
+        "Running the production preflight runner fails with a non-zero exit code if TypeScript compilation fails or required static assets are missing, and succeeds (exit code 0) when all checks pass.",
+        "DEPLOYMENT.md includes a post-deployment verification checklist that covers at least: header rendering across breakpoints, hero background rendering, navigation scroll offset correctness, and no missing asset 404s in production."
       ]
     }
   ],
   "constraints": [
-    "Do not edit files under `frontend/src/components/ui` (compose them as-is).",
-    "Do not edit immutable hook entrypoints: `frontend/src/hooks/useInternetIdentity.ts`, `frontend/src/hooks/useInternetIdentity.tsx`, `frontend/src/hooks/useActor.ts`, `frontend/src/main.tsx`.",
-    "Keep backend as a single Motoko actor; add `backend/migration.mo` only if a state upgrade is required."
+    "Do not edit any files under frontend/src/components/ui or any paths listed as immutable in SYSTEM_CONTEXT.",
+    "Keep all backend logic within the single Motoko actor in backend/main.mo (no additional backend services).",
+    "Use English for any user-facing text."
   ],
   "nonGoals": [
-    "Adding new product features or changing marketing copy.",
-    "Redesigning the layout or theming beyond what is necessary to ensure a successful production build and deployment.",
-    "Implementing new backend logic (the backend can remain empty if not required for publishing)."
+    "Adding new product features beyond enlarging the header/logo and preparing the app for production publishing.",
+    "Changing the logo image file itself or generating a new logo image unless explicitly requested.",
+    "Implementing third-party authentication providers or external backend/database integrations."
   ],
   "imageRequirements": {
     "required": [],
