@@ -1,45 +1,32 @@
 {
   "schemaVersion": "1.0.0",
   "projectStateVersion": 3,
-  "summary": "Draft app redeployed (Version 32). User requested larger header/logo and to publish the app; builds are failing due to an internal configuration error.",
+  "summary": "New project",
   "architectural_notes": [],
   "known_issues": [
-    "Build/publish fails due to internal configuration error; may require Caffeine team support"
+    "Facebook link is not working (reported after deployment; link behavior not as expected)."
   ],
-  "isFixRequest": false,
+  "isFixRequest": true,
   "existing_features": [
     {
-      "id": "feature-increase-the-visual-size-of-the-siteheader-and-its-brand-logo-while-preserving-the-current-responsive-behavior-mobile-vs-md-and-overall-layout-logo-brand-text-nav-cta-mobile-menu",
-      "title": "Increase the visual size of the SiteHeader and its brand logo while preserving the current responsive behavior (mobile vs. md+) and overall layout (logo + brand text + nav + CTA + mobile menu).",
+      "id": "feature-update-the-facebook-social-link-so-it-navigates-to-a-valid-facebook-url-instead-of-the-current-placeholder-by-changing-the-facebook-url-constant-in-frontend-src-content-sociallinks-ts",
+      "title": "Update the Facebook social link so it navigates to a valid Facebook URL instead of the current placeholder, by changing the `FACEBOOK_URL` constant in `frontend/src/content/socialLinks.ts`.",
       "reqIds": [
         "REQ-1"
       ],
       "version": 1
     },
     {
-      "id": "feature-add-a-production-publish-readiness-flow-ensure-there-is-a-documented-repeatable-preflight-deploy-procedure-and-that-the-preflight-checks-typescript-compile-required-static-asset-verification-can-be-run-successfully-before-publishing",
-      "title": "Add a production publish readiness flow: ensure there is a documented, repeatable preflight + deploy procedure and that the preflight checks (TypeScript compile + required static asset verification) can be run successfully before publishing.",
+      "id": "feature-harden-the-footer-social-icon-links-in-frontend-src-components-sitefooter-tsx-so-placeholder-urls-e-g-empty-string-do-not-appear-as-broken-links-to-users-when-a-social-url-is-not-a-valid-external-url-disable-the-icon-interaction-no-navigation-and-apply-a-disabled-visual-state-when-valid-open-the-link-in-a-new-tab-with-target-blank-and-rel-noopener-noreferrer-apply-consistently-to-facebook-and-x-twitter",
+      "title": "Harden the footer social icon links in `frontend/src/components/SiteFooter.tsx` so placeholder URLs (e.g., '#', empty string) do not appear as 'broken links' to users: when a social URL is not a valid external URL, disable the icon interaction (no navigation) and apply a disabled visual state; when valid, open the link in a new tab with `target=\"_blank\"` and `rel=\"noopener noreferrer\"` (apply consistently to Facebook and X/Twitter).",
       "reqIds": [
         "REQ-2"
       ],
       "version": 1
     }
   ],
-  "new_feature_requests": [
-    {
-      "id": "AR-1",
-      "summary": "Increase the size of the header and logo",
-      "reqIds": [],
-      "status": "pending"
-    },
-    {
-      "id": "AR-2",
-      "summary": "Publish the app to production",
-      "reqIds": [],
-      "status": "pending"
-    }
-  ],
-  "projectName": "Prepare production publish and enlarge header/logo",
+  "new_feature_requests": [],
+  "projectName": "Fix Facebook social link in footer",
   "clarification_mode": "instant",
   "clarification_rounds": 0
 }

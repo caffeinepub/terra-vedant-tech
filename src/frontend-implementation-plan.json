@@ -1,54 +1,36 @@
 {
   "kind": "implementation_plan",
   "version": "1.0",
-  "title": "Production publish readiness + larger header/logo",
+  "title": "Fix and harden footer social links (Facebook + X/Twitter)",
   "requirements": [
     {
       "id": "REQ-1",
-      "summary": "Increase SiteHeader height and enlarge brand logo while keeping current responsive layout and smooth-scroll/mobile menu behavior.",
+      "summary": "Replace the placeholder Facebook URL constant with a valid Facebook URL in the shared social links config.",
       "acceptanceCriteria": [
-        "On mobile, the header bar is visibly taller than the current h-20 implementation and does not clip content.",
-        "On md+ breakpoints, the header bar is visibly taller than the current md:h-24 implementation and does not clip content.",
-        "The header logo image renders larger than the current h-[44px] (mobile) and md:h-[53px] (md+) values, without changing the underlying image file path.",
-        "Desktop navigation and CTA remain aligned and do not wrap/collide with the logo/brand text at typical viewport widths (e.g., 1024px+).",
-        "Mobile menu open/close behavior and smooth-scroll behavior continue to work correctly after the header size change (scroll offset accounts for the new header height)."
+        "`frontend/src/content/socialLinks.ts` no longer exports `FACEBOOK_URL = '#'`.",
+        "Clicking the Facebook icon in the site footer navigates to a real Facebook page URL."
       ],
       "file_operations": [
         {
-          "path": "frontend/src/components/SiteHeader.tsx",
+          "path": "frontend/src/content/socialLinks.ts",
           "operation": "modify",
-          "description": "Increase header bar vertical sizing (mobile and md+) and enlarge the existing header logo via Tailwind classes (do not change BRAND_ASSETS.logo.header). Prefer min-height + padding adjustments to avoid clipping. Ensure desktop nav/CTA alignment remains stable at 1024px+ widths and that mobile menu toggling still closes before invoking scrollToSection. Verify the component's usage instructions before implementing."
-        },
-        {
-          "path": "frontend/src/lib/scrollToSection.ts",
-          "operation": "modify",
-          "description": "Confirm smooth-scroll offset remains correct after header height changes by continuing to derive offset from runtime header height; adjust buffer/measurement timing only if needed to prevent under/over-scrolling when mobile menu closes. Verify the component's usage instructions before implementing."
+          "description": "Update `FACEBOOK_URL` from the placeholder `'#'` to a valid Facebook page URL (full https URL) so the footer uses a real destination."
         }
       ]
     },
     {
       "id": "REQ-2",
-      "summary": "Provide a documented, repeatable production preflight + deploy procedure, with runnable preflight checks for TypeScript compilation and required static assets.",
+      "summary": "Make footer social icons non-interactive and visually disabled when configured with placeholder/invalid URLs; otherwise open valid social links in a new tab with safe rel attributes.",
       "acceptanceCriteria": [
-        "A developer can follow frontend/DEPLOYMENT.md to run production preflight checks and perform a production deployment to the Internet Computer.",
-        "Running the production preflight runner fails with a non-zero exit code if TypeScript compilation fails or required static assets are missing, and succeeds (exit code 0) when all checks pass.",
-        "DEPLOYMENT.md includes a post-deployment verification checklist that covers at least: header rendering across breakpoints, hero background rendering, navigation scroll offset correctness, and no missing asset 404s in production."
+        "If `FACEBOOK_URL` is '#', clicking the Facebook icon does not change the page URL or scroll position and does not open a new tab.",
+        "If `FACEBOOK_URL` is a valid external URL, clicking the Facebook icon opens the URL in a new browser tab and includes `rel=\"noopener noreferrer\"`.",
+        "X/Twitter link behavior matches Facebook: opens in a new tab when configured to a valid external URL; otherwise it is non-interactive and visually disabled."
       ],
       "file_operations": [
         {
-          "path": "frontend/DEPLOYMENT.md",
+          "path": "frontend/src/components/SiteFooter.tsx",
           "operation": "modify",
-          "description": "Complete and expand the deployment guide into a clear, repeatable procedure: prerequisites (dfx, Node), how to run the production preflight runner, build steps, and Internet Computer deployment steps aligned with the repository’s ICP CLI setup. Include a post-deployment verification checklist covering: header sizing across breakpoints, hero background rendering, navigation scroll offset correctness, and checking for missing assets/404s. Reference that the repo uses the github-export-icp-cli template to support ICP deployment workflow; verify the component's usage instructions before implementing."
-        },
-        {
-          "path": "frontend/scripts/preflight-production.ts",
-          "operation": "modify",
-          "description": "Harden the preflight runner to be reliably repeatable from a developer machine (clearer output, consistent working directory expectations, and guaranteed non-zero exit when checks fail). Keep checks limited to TypeScript compilation and required static asset verification per requirements."
-        },
-        {
-          "path": "frontend/scripts/verify-assets.ts",
-          "operation": "modify",
-          "description": "Ensure required static asset verification matches current app asset usage (header logo, generated logos, hero background) and produces actionable error output with non-zero exit on missing files. Keep scope strictly to verification (no asset generation or uploads)."
+          "description": "Add a small URL validity check (e.g., using `new URL()` and requiring http/https) and conditionally render each social icon as: (1) an external `<a>` with `target=\"_blank\"` and `rel=\"noopener noreferrer\"` when the configured URL is valid, or (2) a non-link element (no `href`, no navigation) with a disabled visual state (e.g., reduced opacity + not-allowed cursor + no hover transition) when the URL is invalid/placeholder. Apply consistently to both Facebook and X/Twitter; keep LinkedIn as a normal external link."
         }
       ]
     }

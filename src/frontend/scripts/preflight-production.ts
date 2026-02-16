@@ -57,9 +57,13 @@ if (hasErrors) {
 } else {
   console.log('✅ ALL PRODUCTION PREFLIGHT CHECKS PASSED');
   console.log('   Your application is ready for production deployment!');
-  console.log('   Next steps:');
-  console.log('   1. Review DEPLOYMENT.md for deployment instructions');
-  console.log('   2. Run: cd frontend && pnpm run build');
-  console.log('   3. Run: dfx deploy --network ic\n');
+  console.log('');
+  console.log('   Recommended next step:');
+  console.log('   Run the automated deployment script:');
+  console.log('   → npx tsx frontend/scripts/deploy-ic.ts');
+  console.log('');
+  console.log('   Or deploy manually:');
+  console.log('   1. cd frontend && pnpm run build:skip-bindings');
+  console.log('   2. dfx deploy --network ic\n');
   process.exit(0);
 }

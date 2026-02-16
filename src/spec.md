@@ -1,13 +1,11 @@
 # Specification
 
 ## Summary
-**Goal:** Enlarge the site header and brand logo without breaking responsiveness, and add a documented, repeatable production preflight + deploy process.
+**Goal:** Fix the Facebook footer social link and prevent placeholder social URLs from behaving like broken links.
 
 **Planned changes:**
-- Increase SiteHeader height on mobile and md+ breakpoints while preserving the existing layout (logo + brand text + nav + CTA + mobile menu).
-- Increase the rendered logo size via CSS/classes only (no change to the logo image file path), ensuring alignment and no wrapping/collisions at typical desktop widths.
-- Update smooth-scroll / scroll-offset behavior so navigation targets align correctly with the new header height.
-- Add `frontend/DEPLOYMENT.md` with a step-by-step preflight + deployment procedure for publishing to the Internet Computer, plus a post-deploy verification checklist.
-- Add a production preflight runner that fails if TypeScript compilation fails or required static assets are missing.
+- Update `FACEBOOK_URL` in `frontend/src/content/socialLinks.ts` from the placeholder `'#'` to a valid Facebook page URL.
+- Update `frontend/src/components/SiteFooter.tsx` to treat invalid/placeholder social URLs (e.g., `'#'`, empty) as disabled (non-interactive) with a disabled visual state.
+- Ensure valid Facebook and X/Twitter social links open in a new tab with `target="_blank"` and `rel="noopener noreferrer"`.
 
-**User-visible outcome:** The header and logo appear larger across breakpoints without layout issues, navigation/mobile menu behavior remains correct, and developers can reliably preflight-check and deploy the app to production with documented steps.
+**User-visible outcome:** Clicking the Facebook icon in the footer reliably opens a real Facebook page in a new tab when configured, and any unconfigured/placeholder Facebook or X/Twitter links appear disabled and do nothing when clicked.

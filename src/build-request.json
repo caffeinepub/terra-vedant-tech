@@ -1,59 +1,66 @@
 {
   "kind": "build_request",
-  "title": "Prepare production publish and enlarge header/logo",
+  "title": "Fix Facebook social link in footer",
   "priority": "normal",
   "requirements": [
     {
       "id": "REQ-1",
-      "text": "Increase the visual size of the SiteHeader and its brand logo while preserving the current responsive behavior (mobile vs. md+) and overall layout (logo + brand text + nav + CTA + mobile menu).",
+      "text": "Update the Facebook social link so it navigates to a valid Facebook URL instead of the current placeholder, by changing the `FACEBOOK_URL` constant in `frontend/src/content/socialLinks.ts`.",
       "target": "frontend",
       "source": {
         "messageIds": [
-          "msg-6"
+          "msg-4"
         ],
         "quotes": [
-          "Increase the size of the header and logo"
+          "Facebook link not working"
         ]
       },
       "acceptanceCriteria": [
-        "On mobile, the header bar is visibly taller than the current h-20 implementation and does not clip content.",
-        "On md+ breakpoints, the header bar is visibly taller than the current md:h-24 implementation and does not clip content.",
-        "The header logo image renders larger than the current h-[44px] (mobile) and md:h-[53px] (md+) values, without changing the underlying image file path.",
-        "Desktop navigation and CTA remain aligned and do not wrap/collide with the logo/brand text at typical viewport widths (e.g., 1024px+).",
-        "Mobile menu open/close behavior and smooth-scroll behavior continue to work correctly after the header size change (scroll offset accounts for the new header height)."
+        "`frontend/src/content/socialLinks.ts` no longer exports `FACEBOOK_URL = '#'`.",
+        "Clicking the Facebook icon in the site footer navigates to a real Facebook page URL."
       ]
     },
     {
       "id": "REQ-2",
-      "text": "Add a production publish readiness flow: ensure there is a documented, repeatable preflight + deploy procedure and that the preflight checks (TypeScript compile + required static asset verification) can be run successfully before publishing.",
+      "text": "Harden the footer social icon links in `frontend/src/components/SiteFooter.tsx` so placeholder URLs (e.g., '#', empty string) do not appear as 'broken links' to users: when a social URL is not a valid external URL, disable the icon interaction (no navigation) and apply a disabled visual state; when valid, open the link in a new tab with `target=\"_blank\"` and `rel=\"noopener noreferrer\"` (apply consistently to Facebook and X/Twitter).",
       "target": "frontend",
       "source": {
         "messageIds": [
-          "msg-20"
+          "msg-4"
         ],
         "quotes": [
-          "Publish it"
+          "Facebook link not working"
         ]
       },
       "acceptanceCriteria": [
-        "A developer can follow frontend/DEPLOYMENT.md to run production preflight checks and perform a production deployment to the Internet Computer.",
-        "Running the production preflight runner fails with a non-zero exit code if TypeScript compilation fails or required static assets are missing, and succeeds (exit code 0) when all checks pass.",
-        "DEPLOYMENT.md includes a post-deployment verification checklist that covers at least: header rendering across breakpoints, hero background rendering, navigation scroll offset correctness, and no missing asset 404s in production."
+        "If `FACEBOOK_URL` is '#', clicking the Facebook icon does not change the page URL or scroll position and does not open a new tab.",
+        "If `FACEBOOK_URL` is a valid external URL, clicking the Facebook icon opens the URL in a new browser tab and includes `rel=\"noopener noreferrer\"`.",
+        "X/Twitter link behavior matches Facebook: opens in a new tab when configured to a valid external URL; otherwise it is non-interactive and visually disabled."
       ]
     }
   ],
   "constraints": [
-    "Do not edit any files under frontend/src/components/ui or any paths listed as immutable in SYSTEM_CONTEXT.",
-    "Keep all backend logic within the single Motoko actor in backend/main.mo (no additional backend services).",
-    "Use English for any user-facing text."
+    "Do not edit files under `frontend/src/hooks/useInternetIdentity.ts`, `frontend/src/hooks/useInternetIdentity.tsx`, `frontend/src/hooks/useActor.ts`, `frontend/src/main.tsx`, or anything in `frontend/src/components/ui` (compose instead of modifying read-only UI component sources)."
   ],
   "nonGoals": [
-    "Adding new product features beyond enlarging the header/logo and preparing the app for production publishing.",
-    "Changing the logo image file itself or generating a new logo image unless explicitly requested.",
-    "Implementing third-party authentication providers or external backend/database integrations."
+    "Implementing or changing any backend (Motoko) logic.",
+    "Adding new social networks beyond the existing LinkedIn, X/Twitter, and Facebook icons.",
+    "Adding third-party analytics or click tracking for social links."
   ],
   "imageRequirements": {
     "required": [],
     "edits": []
+  },
+  "userProfileUpdate": {
+    "goalsToAdd": [],
+    "goalsToRemove": [],
+    "preferencesToAdd": [
+      "Use English for all user-facing text."
+    ],
+    "preferencesToRemove": [],
+    "miscToAdd": [],
+    "miscToRemove": [],
+    "fieldsToSet": {},
+    "fieldsToDelete": []
   }
 }

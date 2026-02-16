@@ -1,6 +1,20 @@
 import { SiLinkedin, SiX, SiFacebook } from 'react-icons/si';
 import { Heart } from 'lucide-react';
 import { scrollToSection } from '@/lib/scrollToSection';
+import { LINKEDIN_URL, TWITTER_URL, FACEBOOK_URL } from '@/content/socialLinks';
+
+/**
+ * Validates if a URL is a valid external link (not a placeholder)
+ */
+function isValidExternalUrl(url: string): boolean {
+  if (!url || url === '#' || url === '') return false;
+  try {
+    const parsed = new URL(url);
+    return parsed.protocol === 'http:' || parsed.protocol === 'https:';
+  } catch {
+    return false;
+  }
+}
 
 export function SiteFooter() {
   const currentYear = new Date().getFullYear();
@@ -10,6 +24,11 @@ export function SiteFooter() {
     ? encodeURIComponent(window.location.hostname)
     : 'terra-vedant-tech';
   const caffeineLink = `https://caffeine.ai/?utm_source=Caffeine-footer&utm_medium=referral&utm_content=${appIdentifier}`;
+
+  // Validate social URLs
+  const isLinkedInValid = isValidExternalUrl(LINKEDIN_URL);
+  const isTwitterValid = isValidExternalUrl(TWITTER_URL);
+  const isFacebookValid = isValidExternalUrl(FACEBOOK_URL);
 
   return (
     <footer className="bg-muted/50 border-t">
@@ -57,27 +76,65 @@ export function SiteFooter() {
               Connect
             </h3>
             <div className="flex gap-3">
-              <a
-                href="#"
-                className="flex items-center justify-center w-10 h-10 rounded-lg bg-muted hover:bg-primary/10 hover:text-primary transition-colors"
-                aria-label="LinkedIn"
-              >
-                <SiLinkedin className="w-5 h-5" />
-              </a>
-              <a
-                href="#"
-                className="flex items-center justify-center w-10 h-10 rounded-lg bg-muted hover:bg-primary/10 hover:text-primary transition-colors"
-                aria-label="X (Twitter)"
-              >
-                <SiX className="w-5 h-5" />
-              </a>
-              <a
-                href="#"
-                className="flex items-center justify-center w-10 h-10 rounded-lg bg-muted hover:bg-primary/10 hover:text-primary transition-colors"
-                aria-label="Facebook"
-              >
-                <SiFacebook className="w-5 h-5" />
-              </a>
+              {/* LinkedIn */}
+              {isLinkedInValid ? (
+                <a
+                  href={LINKEDIN_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center justify-center w-10 h-10 rounded-lg bg-muted hover:bg-primary/10 hover:text-primary transition-colors"
+                  aria-label="LinkedIn"
+                >
+                  <SiLinkedin className="w-5 h-5" />
+                </a>
+              ) : (
+                <div
+                  className="flex items-center justify-center w-10 h-10 rounded-lg bg-muted opacity-40 cursor-not-allowed"
+                  aria-label="LinkedIn (not configured)"
+                >
+                  <SiLinkedin className="w-5 h-5" />
+                </div>
+              )}
+
+              {/* X (Twitter) */}
+              {isTwitterValid ? (
+                <a
+                  href={TWITTER_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center justify-center w-10 h-10 rounded-lg bg-muted hover:bg-primary/10 hover:text-primary transition-colors"
+                  aria-label="X (Twitter)"
+                >
+                  <SiX className="w-5 h-5" />
+                </a>
+              ) : (
+                <div
+                  className="flex items-center justify-center w-10 h-10 rounded-lg bg-muted opacity-40 cursor-not-allowed"
+                  aria-label="X (Twitter) (not configured)"
+                >
+                  <SiX className="w-5 h-5" />
+                </div>
+              )}
+
+              {/* Facebook */}
+              {isFacebookValid ? (
+                <a
+                  href={FACEBOOK_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center justify-center w-10 h-10 rounded-lg bg-muted hover:bg-primary/10 hover:text-primary transition-colors"
+                  aria-label="Facebook"
+                >
+                  <SiFacebook className="w-5 h-5" />
+                </a>
+              ) : (
+                <div
+                  className="flex items-center justify-center w-10 h-10 rounded-lg bg-muted opacity-40 cursor-not-allowed"
+                  aria-label="Facebook (not configured)"
+                >
+                  <SiFacebook className="w-5 h-5" />
+                </div>
+              )}
             </div>
           </div>
         </div>
@@ -105,3 +162,4 @@ export function SiteFooter() {
     </footer>
   );
 }
+

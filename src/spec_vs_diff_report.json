@@ -1,36 +1,31 @@
 {
   "kind": "spec_vs_diff_report",
   "version": "1.0",
-  "generatedAt": "2026-02-13T04:03:44.730Z",
-  "summary": "REQ-1 (increase header/logo size) appears implemented in SiteHeader with larger min-heights and logo heights and preservation of layout/mobile menu behavior. REQ-2 is partially evidenced: preflight scripts exist and enforce non-zero exit on failures, but the provided DEPLOYMENT.md excerpt is truncated and does not itself show the required repeatable procedure details or the specified post-deployment checklist items.",
-  "missing_requirements": [
+  "generatedAt": "2026-02-16T09:50:00.529Z",
+  "summary": "REQ-1 appears implemented by updating FACEBOOK_URL to a real Facebook page URL. REQ-2 appears implemented by adding external-URL validation and rendering social icons as either real external anchors (with target/rel) or non-interactive disabled elements when URLs are placeholders. The diff also introduces unrequested behavior (UTM-tracked caffeine.ai link and LinkedIn hardening) beyond the stated requirements.",
+  "missing_requirements": [],
+  "hallucinated_features": [
     {
-      "id": "REQ-2",
-      "requirement": "DEPLOYMENT.md includes a post-deployment verification checklist that covers at least: header rendering across breakpoints, hero background rendering, navigation scroll offset correctness, and no missing asset 404s in production.",
-      "reason": "The DEPLOYMENT.md content shown in the diff is truncated early and does not include any visible post-deployment verification checklist, so this cannot be confirmed from the provided evidence.",
+      "description": "Added a UTM-tracked caffeine.ai attribution link with dynamic hostname-based utm_content in the footer.",
+      "reason": "Not requested in REQ-1/REQ-2, and it introduces tracking parameters (even if not for social links).",
       "evidence": [
-        "frontend/DEPLOYMENT.md"
+        "frontend/src/components/SiteFooter.tsx (\"Generate UTM-tracked caffeine.ai link\" and `caffeineLink = https://caffeine.ai/?utm_source=...`)",
+        "frontend-file-summaries.txt (mentions \"UTM-tracked caffeine.ai attribution link\")"
       ]
     },
     {
-      "id": "REQ-2",
-      "requirement": "A developer can follow frontend/DEPLOYMENT.md to run production preflight checks and perform a production deployment to the Internet Computer.",
-      "reason": "Although scripts for preflight exist, the DEPLOYMENT.md excerpt shown does not visibly document the preflight command(s) and the full repeatable deploy procedure; content may exist later but is not present in the provided truncated excerpt.",
+      "description": "Extended the placeholder/disabled-link hardening logic to LinkedIn (validation + disabled rendering) in the footer.",
+      "reason": "REQ-2 explicitly calls out applying the behavior consistently to Facebook and X/Twitter; it does not request changing LinkedIn behavior.",
       "evidence": [
-        "frontend/DEPLOYMENT.md",
-        "frontend/scripts/preflight-production.ts",
-        "frontend/scripts/verify-assets.ts"
+        "frontend/src/components/SiteFooter.tsx (adds `isLinkedInValid` and conditional render for LinkedIn link vs disabled div)"
       ]
     }
   ],
-  "hallucinated_features": [],
-  "confidence": 0.62,
+  "confidence": 0.78,
   "changed_files": [
     "frontend-file-summaries.txt",
-    "frontend/DEPLOYMENT.md",
-    "frontend/scripts/preflight-production.ts",
-    "frontend/scripts/verify-assets.ts",
-    "frontend/src/components/SiteHeader.tsx",
+    "frontend/src/components/SiteFooter.tsx",
+    "frontend/src/content/socialLinks.ts",
     "project_state.json"
   ]
 }
