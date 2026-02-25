@@ -1,0 +1,23 @@
+{
+  "kind": "feature_evidence_report",
+  "features": [
+    {
+      "featureId": "feature-update-the-site-wide-facebook-profile-url-to-https-www-facebook-com-profile-php-id-61587955444489-name-xhp-nt-fb-action-open-user-by-changing-the-facebook-url-constant-in-frontend-src-content-sociallinks-ts",
+      "featureTitle": "Update the site-wide Facebook profile URL to `https://www.facebook.com/profile.php?id=61587955444489&name=xhp_nt__fb__action__open_user` by changing the `FACEBOOK_URL` constant in `frontend/src/content/socialLinks.ts`.",
+      "files": [
+        "frontend/src/content/socialLinks.ts"
+      ],
+      "components": [
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-1"
+      ],
+      "confidence": "high"
+    }
+  ]
+}

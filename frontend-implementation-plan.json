@@ -1,0 +1,22 @@
+{
+  "kind": "implementation_plan",
+  "version": "1.0",
+  "title": "Update Facebook social link URL",
+  "requirements": [
+    {
+      "id": "REQ-1",
+      "summary": "Update the exported site-wide Facebook profile URL constant so the footer Facebook icon links to the new profile.",
+      "acceptanceCriteria": [
+        "`frontend/src/content/socialLinks.ts` exports `FACEBOOK_URL` exactly as `https://www.facebook.com/profile.php?id=61587955444489&name=xhp_nt__fb__action__open_user`.",
+        "The Facebook icon link rendered in the footer uses the updated `FACEBOOK_URL` and opens the link in a new tab (target=\"_blank\") without being treated as an invalid/disabled placeholder."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/content/socialLinks.ts",
+          "operation": "modify",
+          "description": "Replace the existing `FACEBOOK_URL` value with `https://www.facebook.com/profile.php?id=61587955444489&name=xhp_nt__fb__action__open_user`, leaving `LINKEDIN_URL` and `TWITTER_URL` unchanged."
+        }
+      ]
+    }
+  ]
+}

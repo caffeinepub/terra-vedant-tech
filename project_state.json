@@ -1,0 +1,29 @@
+{
+  "schemaVersion": "1.0.0",
+  "projectStateVersion": 3,
+  "summary": "App project with deployable versions; user requests updating social (Facebook) link.",
+  "architectural_notes": [],
+  "known_issues": [],
+  "isFixRequest": false,
+  "existing_features": [
+    {
+      "id": "feature-update-the-site-wide-facebook-profile-url-to-https-www-facebook-com-profile-php-id-61587955444489-name-xhp-nt-fb-action-open-user-by-changing-the-facebook-url-constant-in-frontend-src-content-sociallinks-ts",
+      "title": "Update the site-wide Facebook profile URL to `https://www.facebook.com/profile.php?id=61587955444489&name=xhp_nt__fb__action__open_user` by changing the `FACEBOOK_URL` constant in `frontend/src/content/socialLinks.ts`.",
+      "reqIds": [
+        "REQ-1"
+      ],
+      "version": 1
+    }
+  ],
+  "new_feature_requests": [
+    {
+      "id": "AR-1",
+      "summary": "Update the app/site Facebook link to https://www.facebook.com/profile.php?id=61587955444489&name=xhp_nt__fb__action__open_user",
+      "reqIds": [],
+      "status": "pending"
+    }
+  ],
+  "projectName": "Update Facebook social link URL",
+  "clarification_mode": "instant",
+  "clarification_rounds": 0
+}

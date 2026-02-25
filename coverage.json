@@ -1,0 +1,37 @@
+{
+  "kind": "coverage_report",
+  "version": "1.0",
+  "generatedAt": "2026-02-16T09:55:05.035Z",
+  "sources": {
+    "buildRequest": true,
+    "implementationPlan": true
+  },
+  "requirements": {
+    "total": 1,
+    "implemented": 1,
+    "items": [
+      {
+        "id": "REQ-1",
+        "summary": "Update the site-wide Facebook profile URL to `https://www.facebook.com/profile.php?id=61587955444489&name=xhp_nt__fb__action__open_user` by changing the `FACEBOOK_URL` constant in `frontend/src/content/socialLinks.ts`.",
+        "status": "implemented",
+        "plannedFiles": [
+          "frontend/src/content/socialLinks.ts"
+        ],
+        "matchedFiles": [
+          "frontend/src/content/socialLinks.ts"
+        ]
+      }
+    ]
+  },
+  "changedFiles": [
+    "build-request.json",
+    "feature_evidence.json",
+    "frontend-file-summaries.txt",
+    "frontend-implementation-plan.json",
+    "frontend/src/content/socialLinks.ts",
+    "project_state.json",
+    "scratch/component-selection.json",
+    "spec.md",
+    "spec_vs_diff_report.json"
+  ]
+}
