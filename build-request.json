@@ -1,46 +1,83 @@
 {
   "kind": "build_request",
-  "title": "Update Facebook social link URL",
+  "title": "Add personalized dashboard for returning visitors",
+  "projectName": "Terra Vedant Tech",
   "priority": "normal",
   "requirements": [
     {
       "id": "REQ-1",
-      "text": "Update the site-wide Facebook profile URL to `https://www.facebook.com/profile.php?id=61587955444489&name=xhp_nt__fb__action__open_user` by changing the `FACEBOOK_URL` constant in `frontend/src/content/socialLinks.ts`.",
-      "target": "frontend",
+      "text": "Add a personalized dashboard section that is visible only to authenticated users (logged in via Internet Identity). The dashboard should display a welcome message with the user's principal ID and provide placeholders or tracked data for user activity (e.g., last login, pages visited) and saved preferences.",
+      "target": "both",
       "source": {
         "messageIds": [
-          "msg-user-1"
+          "msg-4"
         ],
         "quotes": [
-          "Change the Facebook link to https://www.facebook.com/profile.php?id=61587955444489&name=xhp_nt__fb__action__open_user"
+          "personalized dashboard so returning visitors can see their activity or saved preferences"
         ]
       },
       "acceptanceCriteria": [
-        "`frontend/src/content/socialLinks.ts` exports `FACEBOOK_URL` exactly as `https://www.facebook.com/profile.php?id=61587955444489&name=xhp_nt__fb__action__open_user`.",
-        "The Facebook icon link rendered in the footer uses the updated `FACEBOOK_URL` and opens the link in a new tab (target=\"_blank\") without being treated as an invalid/disabled placeholder."
+        "Dashboard section is only rendered when a user is authenticated via Internet Identity",
+        "Dashboard displays a personalized welcome message referencing the authenticated user",
+        "Dashboard shows at least one activity metric (e.g., visit count or last login timestamp) stored per principal in the backend",
+        "Dashboard shows at least one saved preference that the user can set and retrieve across sessions",
+        "Unauthenticated users do not see the dashboard section",
+        "Data is persisted in the Motoko backend actor keyed by user principal"
+      ]
+    },
+    {
+      "id": "REQ-2",
+      "text": "Update the backend Motoko actor to store and retrieve per-user data: visit count (incremented on each authenticated session), last login timestamp, and at least one user-configurable preference (e.g., a display name or preferred contact topic). Expose query and update functions for the frontend to call.",
+      "target": "backend",
+      "source": {
+        "messageIds": [
+          "msg-4"
+        ],
+        "quotes": [
+          "personalized dashboard so returning visitors can see their activity or saved preferences"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Backend stores a record per Principal with fields: visitCount (Nat), lastLogin (Int timestamp), and a preference field (Text)",
+        "Backend exposes an update function to record a login/visit and increment visit count",
+        "Backend exposes a query function to retrieve the user's stored data by Principal",
+        "Backend exposes an update function to save a user preference",
+        "State persists across canister upgrades"
+      ]
+    },
+    {
+      "id": "REQ-3",
+      "text": "Add a React Query hook in frontend/src/hooks/useQueries.ts to fetch the authenticated user's dashboard data from the backend, and a mutation hook to update preferences. Integrate these hooks into the dashboard UI component.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-4"
+        ],
+        "quotes": [
+          "personalized dashboard so returning visitors can see their activity or saved preferences"
+        ]
+      },
+      "acceptanceCriteria": [
+        "useQueries.ts exports a hook that fetches user dashboard data using the authenticated actor",
+        "A mutation hook is available to update saved preferences",
+        "Dashboard component uses these hooks and displays loading and error states appropriately",
+        "Data refreshes automatically after a preference is updated"
       ]
     }
   ],
   "constraints": [
-    "Do not modify any files under `frontend/src/hooks/*` listed as immutable in SYSTEM_CONTEXT.",
-    "Keep all changes within the existing React + TypeScript + Tailwind codebase; no new backend logic is required."
+    "Do not modify any files under frontend/src/hooks/useInternetIdentity.ts, frontend/src/hooks/useActor.ts, frontend/src/main.tsx, or frontend/src/components/ui",
+    "All backend logic must remain in the single-actor backend/main.mo file",
+    "Dashboard must only be accessible to authenticated users — no data exposure to anonymous principals"
   ],
   "nonGoals": [
-    "Do not change LinkedIn or X/Twitter URLs.",
-    "Do not redesign the footer or modify social-link validation behavior beyond what is necessary to reflect the updated Facebook URL."
+    "Third-party analytics or external tracking services",
+    "Email notifications or push notifications",
+    "Social login or any authentication method other than Internet Identity",
+    "Real-time updates or WebSocket-based live data"
   ],
   "imageRequirements": {
     "required": [],
     "edits": []
-  },
-  "userProfileUpdate": {
-    "goalsToAdd": [],
-    "goalsToRemove": [],
-    "preferencesToAdd": [],
-    "preferencesToRemove": [],
-    "miscToAdd": [],
-    "miscToRemove": [],
-    "fieldsToSet": {},
-    "fieldsToDelete": []
   }
 }

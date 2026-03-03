@@ -34,10 +34,10 @@ export function ServicesSection() {
               >
                 <CardHeader>
                   <div className="inline-flex items-center justify-center w-14 h-14 rounded-lg bg-primary/10 mb-4 group-hover:bg-primary/20 transition-colors">
-                    <Icon className="w-7 h-7 text-primary" />
+                    <Icon className="w-7 h-7 text-primary" aria-hidden="true" />
                   </div>
                   <CardTitle className="font-display text-xl">
-                    {service.title}
+                    <h3>{service.title}</h3>
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
@@ -53,4 +53,3 @@ export function ServicesSection() {
     </section>
   );
 }
-

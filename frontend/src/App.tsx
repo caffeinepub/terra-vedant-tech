@@ -1,6 +1,7 @@
 import { ProductionErrorBoundary } from './components/ProductionErrorBoundary';
 import { SiteHeader } from './components/SiteHeader';
 import { HeroSection } from './components/sections/HeroSection';
+import { DashboardSection } from './components/sections/DashboardSection';
 import { AboutSection } from './components/sections/AboutSection';
 import { ServicesSection } from './components/sections/ServicesSection';
 import { ContactSection } from './components/sections/ContactSection';
@@ -13,6 +14,7 @@ function App() {
         <SiteHeader />
         <main className="flex-1">
           <HeroSection />
+          <DashboardSection />
           <AboutSection />
           <ServicesSection />
           <ContactSection />

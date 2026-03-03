@@ -42,7 +42,7 @@ export function AboutSection() {
                   className="text-center p-6 rounded-lg bg-card hover:shadow-soft transition-shadow"
                 >
                   <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-primary/10 mb-4">
-                    <Icon className="w-8 h-8 text-primary" />
+                    <Icon className="w-8 h-8 text-primary" aria-hidden="true" />
                   </div>
                   <h3 className="font-display font-semibold text-xl mb-2">
                     {value.title}
@@ -59,4 +59,3 @@ export function AboutSection() {
     </section>
   );
 }
-

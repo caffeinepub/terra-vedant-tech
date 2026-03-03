@@ -1,16 +1,26 @@
 {
   "schemaVersion": "1.0.0",
   "projectStateVersion": 3,
-  "summary": "App project with deployable versions; user requests updating social (Facebook) link.",
-  "architectural_notes": [],
+  "summary": "App with Internet Identity authentication and personalized dashboard for returning visitors.",
+  "architectural_notes": [
+    "Uses Internet Identity for authentication"
+  ],
   "known_issues": [],
   "isFixRequest": false,
   "existing_features": [
     {
-      "id": "feature-update-the-site-wide-facebook-profile-url-to-https-www-facebook-com-profile-php-id-61587955444489-name-xhp-nt-fb-action-open-user-by-changing-the-facebook-url-constant-in-frontend-src-content-sociallinks-ts",
-      "title": "Update the site-wide Facebook profile URL to `https://www.facebook.com/profile.php?id=61587955444489&name=xhp_nt__fb__action__open_user` by changing the `FACEBOOK_URL` constant in `frontend/src/content/socialLinks.ts`.",
+      "id": "feature-add-a-personalized-dashboard-section-that-is-visible-only-to-authenticated-users-logged-in-via-internet-identity-the-dashboard-should-display-a-welcome-message-with-the-user-s-principal-id-and-provide-placeholders-or-tracked-data-for-user-activity-e-g-last-login-pages-visited-and-saved-preferences",
+      "title": "Add a personalized dashboard section that is visible only to authenticated users (logged in via Internet Identity). The dashboard should display a welcome message with the user's principal ID and provide placeholders or tracked data for user activity (e.g., last login, pages visited) and saved preferences.",
       "reqIds": [
         "REQ-1"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-a-react-query-hook-in-frontend-src-hooks-usequeries-ts-to-fetch-the-authenticated-user-s-dashboard-data-from-the-backend-and-a-mutation-hook-to-update-preferences-integrate-these-hooks-into-the-dashboard-ui-component",
+      "title": "Add a React Query hook in frontend/src/hooks/useQueries.ts to fetch the authenticated user's dashboard data from the backend, and a mutation hook to update preferences. Integrate these hooks into the dashboard UI component.",
+      "reqIds": [
+        "REQ-3"
       ],
       "version": 1
     }
@@ -18,12 +28,20 @@
   "new_feature_requests": [
     {
       "id": "AR-1",
-      "summary": "Update the app/site Facebook link to https://www.facebook.com/profile.php?id=61587955444489&name=xhp_nt__fb__action__open_user",
+      "summary": "Personalized dashboard showing user activity and saved preferences for returning visitors",
       "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-3",
+      "summary": "Update the backend Motoko actor to store and retrieve per-user data: visit count (incremented on each authenticated session), last login timestamp, and at least one user-configurable preference (e.g., a display name or preferred contact topic). Expose query and update functions for the frontend to call.",
+      "reqIds": [
+        "REQ-2"
+      ],
       "status": "pending"
     }
   ],
-  "projectName": "Update Facebook social link URL",
+  "projectName": "Terra Vedant Tech",
   "clarification_mode": "instant",
   "clarification_rounds": 0
 }

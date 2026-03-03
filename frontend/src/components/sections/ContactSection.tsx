@@ -31,13 +31,14 @@ export function ContactSection() {
                 <div className="space-y-4">
                   <div className="flex items-start gap-4">
                     <div className="flex items-center justify-center w-12 h-12 rounded-lg bg-primary/10 flex-shrink-0">
-                      <Mail className="w-6 h-6 text-primary" />
+                      <Mail className="w-6 h-6 text-primary" aria-hidden="true" />
                     </div>
                     <div>
                       <p className="font-medium text-foreground mb-1">Email</p>
                       <a
                         href={`mailto:${contactContent.email}`}
                         className="text-muted-foreground hover:text-primary transition-colors"
+                        aria-label={`Send email to ${contactContent.email}`}
                       >
                         {contactContent.email}
                       </a>
@@ -46,25 +47,26 @@ export function ContactSection() {
 
                   <div className="flex items-start gap-4">
                     <div className="flex items-center justify-center w-12 h-12 rounded-lg bg-primary/10 flex-shrink-0">
-                      <MapPin className="w-6 h-6 text-primary" />
+                      <MapPin className="w-6 h-6 text-primary" aria-hidden="true" />
                     </div>
                     <div>
                       <p className="font-medium text-foreground mb-1">Location</p>
-                      <p className="text-muted-foreground">
+                      <address className="text-muted-foreground not-italic">
                         {contactContent.address}
-                      </p>
+                      </address>
                     </div>
                   </div>
 
                   <div className="flex items-start gap-4">
                     <div className="flex items-center justify-center w-12 h-12 rounded-lg bg-primary/10 flex-shrink-0">
-                      <Phone className="w-6 h-6 text-primary" />
+                      <Phone className="w-6 h-6 text-primary" aria-hidden="true" />
                     </div>
                     <div>
                       <p className="font-medium text-foreground mb-1">Phone</p>
                       <a
                         href={`tel:${sanitizePhoneForTel(contactContent.phone)}`}
                         className="text-muted-foreground hover:text-primary transition-colors"
+                        aria-label={`Call us at ${contactContent.phone}`}
                       >
                         {contactContent.phone}
                       </a>

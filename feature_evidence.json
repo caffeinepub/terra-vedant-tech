@@ -2,20 +2,41 @@
   "kind": "feature_evidence_report",
   "features": [
     {
-      "featureId": "feature-update-the-site-wide-facebook-profile-url-to-https-www-facebook-com-profile-php-id-61587955444489-name-xhp-nt-fb-action-open-user-by-changing-the-facebook-url-constant-in-frontend-src-content-sociallinks-ts",
-      "featureTitle": "Update the site-wide Facebook profile URL to `https://www.facebook.com/profile.php?id=61587955444489&name=xhp_nt__fb__action__open_user` by changing the `FACEBOOK_URL` constant in `frontend/src/content/socialLinks.ts`.",
+      "featureId": "feature-add-a-personalized-dashboard-section-that-is-visible-only-to-authenticated-users-logged-in-via-internet-identity-the-dashboard-should-display-a-welcome-message-with-the-user-s-principal-id-and-provide-placeholders-or-tracked-data-for-user-activity-e-g-last-login-pages-visited-and-saved-preferences",
+      "featureTitle": "Add a personalized dashboard section that is visible only to authenticated users (logged in via Internet Identity). The dashboard should display a welcome message with the user's principal ID and provide placeholders or tracked data for user activity (e.g., last login, pages visited) and saved preferences.",
       "files": [
-        "frontend/src/content/socialLinks.ts"
+        "frontend/src/App.tsx",
+        "frontend/src/components/sections/DashboardSection.tsx"
       ],
       "components": [
         "core-infrastructure@1.0.2",
         "shadcn-ui@1.0.0",
         "build-template-react@1.0.0",
         "initial-app@1.0.0",
-        "github-export-icp-cli@1.0.0"
+        "github-export-icp-cli@1.0.0",
+        "authorization@4.0.0"
       ],
       "testIds": [
         "REQ-1"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-add-a-react-query-hook-in-frontend-src-hooks-usequeries-ts-to-fetch-the-authenticated-user-s-dashboard-data-from-the-backend-and-a-mutation-hook-to-update-preferences-integrate-these-hooks-into-the-dashboard-ui-component",
+      "featureTitle": "Add a React Query hook in frontend/src/hooks/useQueries.ts to fetch the authenticated user's dashboard data from the backend, and a mutation hook to update preferences. Integrate these hooks into the dashboard UI component.",
+      "files": [
+        "frontend/src/hooks/useQueries.ts"
+      ],
+      "components": [
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0",
+        "authorization@4.0.0"
+      ],
+      "testIds": [
+        "REQ-3"
       ],
       "confidence": "high"
     }

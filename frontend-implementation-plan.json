@@ -1,20 +1,46 @@
 {
   "kind": "implementation_plan",
   "version": "1.0",
-  "title": "Update Facebook social link URL",
+  "title": "Add personalized dashboard for returning visitors",
   "requirements": [
     {
       "id": "REQ-1",
-      "summary": "Update the exported site-wide Facebook profile URL constant so the footer Facebook icon links to the new profile.",
+      "summary": "Add a personalized dashboard section visible only to authenticated users showing welcome message, activity metrics, and saved preferences",
       "acceptanceCriteria": [
-        "`frontend/src/content/socialLinks.ts` exports `FACEBOOK_URL` exactly as `https://www.facebook.com/profile.php?id=61587955444489&name=xhp_nt__fb__action__open_user`.",
-        "The Facebook icon link rendered in the footer uses the updated `FACEBOOK_URL` and opens the link in a new tab (target=\"_blank\") without being treated as an invalid/disabled placeholder."
+        "Dashboard section is only rendered when a user is authenticated via Internet Identity",
+        "Dashboard displays a personalized welcome message referencing the authenticated user",
+        "Dashboard shows at least one activity metric (e.g., visit count or last login timestamp) stored per principal in the backend",
+        "Dashboard shows at least one saved preference that the user can set and retrieve across sessions",
+        "Unauthenticated users do not see the dashboard section",
+        "Data is persisted in the Motoko backend actor keyed by user principal"
       ],
       "file_operations": [
         {
-          "path": "frontend/src/content/socialLinks.ts",
+          "path": "frontend/src/components/sections/DashboardSection.tsx",
+          "operation": "create",
+          "description": "Create a new dashboard section component that renders only when a user is authenticated. Display a personalized welcome message using the user's display name from their profile, show visit count and last login timestamp from the backend, and display the user's saved preferences (display name and preferred contact topic). Include a simple form to update preferences with loading and error states. Use the authorization component to ensure proper access control. Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/App.tsx",
           "operation": "modify",
-          "description": "Replace the existing `FACEBOOK_URL` value with `https://www.facebook.com/profile.php?id=61587955444489&name=xhp_nt__fb__action__open_user`, leaving `LINKEDIN_URL` and `TWITTER_URL` unchanged."
+          "description": "Import and wire the DashboardSection component into the main app layout. Position it after the HeroSection and before the AboutSection so authenticated users see their personalized dashboard near the top of the page. Wrap it in a conditional render that checks authentication state from useInternetIdentity."
+        }
+      ]
+    },
+    {
+      "id": "REQ-3",
+      "summary": "Add React Query hooks to fetch dashboard data and update user preferences",
+      "acceptanceCriteria": [
+        "useQueries.ts exports a hook that fetches user dashboard data using the authenticated actor",
+        "A mutation hook is available to update saved preferences",
+        "Dashboard component uses these hooks and displays loading and error states appropriately",
+        "Data refreshes automatically after a preference is updated"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/hooks/useQueries.ts",
+          "operation": "modify",
+          "description": "Replace the placeholder content with working React Query hooks. Add useGetPersonalizedDashboard hook that calls getPersonalizedDashboard() to fetch the welcome message and activity data. Add useGetUserPreferences hook that calls getUserPreferences() to fetch saved preferences. Add useGetVisitCount hook that calls getVisitCount() to fetch the visit count. Add useIncrementVisitCount mutation hook that calls incrementVisitCount() to record a new visit. Add useUpdateUserPreferences mutation hook that calls updateUserPreferences(displayName, preferredContactTopic) and invalidates the preferences query on success. All hooks should be enabled only when the actor is available and should handle loading and error states properly."
         }
       ]
     }

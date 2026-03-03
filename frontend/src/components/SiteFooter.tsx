@@ -47,7 +47,7 @@ export function SiteFooter() {
           </div>
 
           {/* Quick Links */}
-          <div>
+          <nav aria-label="Footer navigation">
             <h3 className="font-display font-semibold text-foreground mb-4">
               Quick Links
             </h3>
@@ -62,79 +62,89 @@ export function SiteFooter() {
                   <button
                     onClick={() => scrollToSection(link.id)}
                     className="text-muted-foreground hover:text-primary transition-colors text-sm"
+                    aria-label={`Navigate to ${link.label} section`}
                   >
                     {link.label}
                   </button>
                 </li>
               ))}
             </ul>
-          </div>
+          </nav>
 
           {/* Connect */}
           <div>
             <h3 className="font-display font-semibold text-foreground mb-4">
               Connect
             </h3>
-            <div className="flex gap-3">
+            <div className="flex gap-3" role="list" aria-label="Social media links">
               {/* LinkedIn */}
-              {isLinkedInValid ? (
-                <a
-                  href={LINKEDIN_URL}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center justify-center w-10 h-10 rounded-lg bg-muted hover:bg-primary/10 hover:text-primary transition-colors"
-                  aria-label="LinkedIn"
-                >
-                  <SiLinkedin className="w-5 h-5" />
-                </a>
-              ) : (
-                <div
-                  className="flex items-center justify-center w-10 h-10 rounded-lg bg-muted opacity-40 cursor-not-allowed"
-                  aria-label="LinkedIn (not configured)"
-                >
-                  <SiLinkedin className="w-5 h-5" />
-                </div>
-              )}
+              <div role="listitem">
+                {isLinkedInValid ? (
+                  <a
+                    href={LINKEDIN_URL}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center justify-center w-10 h-10 rounded-lg bg-muted hover:bg-primary/10 hover:text-primary transition-colors"
+                    aria-label="Visit our LinkedIn company page"
+                  >
+                    <SiLinkedin className="w-5 h-5" aria-hidden="true" />
+                  </a>
+                ) : (
+                  <div
+                    className="flex items-center justify-center w-10 h-10 rounded-lg bg-muted opacity-40 cursor-not-allowed"
+                    aria-label="LinkedIn (not configured)"
+                    role="img"
+                  >
+                    <SiLinkedin className="w-5 h-5" aria-hidden="true" />
+                  </div>
+                )}
+              </div>
 
               {/* X (Twitter) */}
-              {isTwitterValid ? (
-                <a
-                  href={TWITTER_URL}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center justify-center w-10 h-10 rounded-lg bg-muted hover:bg-primary/10 hover:text-primary transition-colors"
-                  aria-label="X (Twitter)"
-                >
-                  <SiX className="w-5 h-5" />
-                </a>
-              ) : (
-                <div
-                  className="flex items-center justify-center w-10 h-10 rounded-lg bg-muted opacity-40 cursor-not-allowed"
-                  aria-label="X (Twitter) (not configured)"
-                >
-                  <SiX className="w-5 h-5" />
-                </div>
-              )}
+              <div role="listitem">
+                {isTwitterValid ? (
+                  <a
+                    href={TWITTER_URL}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center justify-center w-10 h-10 rounded-lg bg-muted hover:bg-primary/10 hover:text-primary transition-colors"
+                    aria-label="Follow us on X (Twitter)"
+                  >
+                    <SiX className="w-5 h-5" aria-hidden="true" />
+                  </a>
+                ) : (
+                  <div
+                    className="flex items-center justify-center w-10 h-10 rounded-lg bg-muted opacity-40 cursor-not-allowed"
+                    aria-label="X (Twitter) (not configured)"
+                    role="img"
+                  >
+                    <SiX className="w-5 h-5" aria-hidden="true" />
+                  </div>
+                )}
+              </div>
 
               {/* Facebook */}
-              {isFacebookValid ? (
-                <a
-                  href={FACEBOOK_URL}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center justify-center w-10 h-10 rounded-lg bg-muted hover:bg-primary/10 hover:text-primary transition-colors"
-                  aria-label="Facebook"
-                >
-                  <SiFacebook className="w-5 h-5" />
-                </a>
-              ) : (
-                <div
-                  className="flex items-center justify-center w-10 h-10 rounded-lg bg-muted opacity-40 cursor-not-allowed"
-                  aria-label="Facebook (not configured)"
-                >
-                  <SiFacebook className="w-5 h-5" />
-                </div>
-              )}
+              <div role="listitem">
+                {isFacebookValid ? (
+                  <a
+                    href={FACEBOOK_URL}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center justify-center w-10 h-10 rounded-lg bg-muted hover:bg-primary/10 hover:text-primary transition-colors"
+                    aria-label="Visit our Facebook page"
+                  >
+                    <SiFacebook className="w-5 h-5" aria-hidden="true" />
+                  </a>
+                ) : (
+                  <div
+                    className="flex items-center justify-center w-10 h-10 rounded-lg bg-muted opacity-40 cursor-not-allowed"
+                    aria-label="Facebook (not configured)"
+                    role="img"
+                  >
+                    <SiFacebook className="w-5 h-5" aria-hidden="true" />
+                  </div>
+                )}
+              </div>
             </div>
           </div>
         </div>
@@ -146,7 +156,7 @@ export function SiteFooter() {
               © {currentYear} Terra Vedant Tech. All rights reserved.
             </p>
             <p className="flex items-center gap-1">
-              Built with <Heart className="w-4 h-4 text-destructive fill-destructive" /> using{' '}
+              Built with <Heart className="w-4 h-4 text-destructive fill-destructive" aria-label="love" /> using{' '}
               <a
                 href={caffeineLink}
                 target="_blank"
@@ -162,4 +172,3 @@ export function SiteFooter() {
     </footer>
   );
 }
-
