@@ -7,5 +7,25 @@ export interface None {
     __kind__: "None";
 }
 export type Option<T> = Some<T> | None;
+export interface UserProfile {
+    displayName: string;
+    preferredContactTopic: string;
+}
+export enum UserRole {
+    admin = "admin",
+    user = "user",
+    guest = "guest"
+}
 export interface backendInterface {
+    assignCallerUserRole(user: Principal, role: UserRole): Promise<void>;
+    getCallerUserProfile(): Promise<UserProfile | null>;
+    getCallerUserRole(): Promise<UserRole>;
+    getPersonalizedDashboard(): Promise<string>;
+    getUserPreferences(): Promise<UserProfile>;
+    getUserProfile(user: Principal): Promise<UserProfile | null>;
+    getVisitCount(): Promise<bigint>;
+    incrementVisitCount(): Promise<void>;
+    isCallerAdmin(): Promise<boolean>;
+    saveCallerUserProfile(profile: UserProfile): Promise<void>;
+    updateUserPreferences(displayName: string, preferredContactTopic: string): Promise<void>;
 }

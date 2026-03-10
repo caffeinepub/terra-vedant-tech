@@ -1,16 +1,16 @@
-import { SiLinkedin, SiX, SiFacebook } from 'react-icons/si';
-import { Heart } from 'lucide-react';
-import { scrollToSection } from '@/lib/scrollToSection';
-import { LINKEDIN_URL, TWITTER_URL, FACEBOOK_URL } from '@/content/socialLinks';
+import { FACEBOOK_URL, LINKEDIN_URL, TWITTER_URL } from "@/content/socialLinks";
+import { scrollToSection } from "@/lib/scrollToSection";
+import { Heart } from "lucide-react";
+import { SiFacebook, SiLinkedin, SiX } from "react-icons/si";
 
 /**
  * Validates if a URL is a valid external link (not a placeholder)
  */
 function isValidExternalUrl(url: string): boolean {
-  if (!url || url === '#' || url === '') return false;
+  if (!url || url === "#" || url === "") return false;
   try {
     const parsed = new URL(url);
-    return parsed.protocol === 'http:' || parsed.protocol === 'https:';
+    return parsed.protocol === "http:" || parsed.protocol === "https:";
   } catch {
     return false;
   }
@@ -18,11 +18,12 @@ function isValidExternalUrl(url: string): boolean {
 
 export function SiteFooter() {
   const currentYear = new Date().getFullYear();
-  
+
   // Generate UTM-tracked caffeine.ai link
-  const appIdentifier = typeof window !== 'undefined' 
-    ? encodeURIComponent(window.location.hostname)
-    : 'terra-vedant-tech';
+  const appIdentifier =
+    typeof window !== "undefined"
+      ? encodeURIComponent(window.location.hostname)
+      : "terra-vedant-tech";
   const caffeineLink = `https://caffeine.ai/?utm_source=Caffeine-footer&utm_medium=referral&utm_content=${appIdentifier}`;
 
   // Validate social URLs
@@ -42,111 +43,126 @@ export function SiteFooter() {
               </span>
             </div>
             <p className="text-muted-foreground text-sm max-w-md leading-relaxed">
-              Empowering farmers with cutting-edge technology for sustainable, data-driven farming solutions.
+              Empowering farmers with cutting-edge technology for sustainable,
+              data-driven farming solutions.
             </p>
           </div>
 
           {/* Quick Links */}
-          <div>
+          <nav aria-label="Footer navigation">
             <h3 className="font-display font-semibold text-foreground mb-4">
               Quick Links
             </h3>
             <ul className="space-y-2">
               {[
-                { label: 'Home', id: 'hero' },
-                { label: 'About', id: 'about' },
-                { label: 'Services', id: 'services' },
-                { label: 'Contact', id: 'contact' }
+                { label: "Home", id: "hero" },
+                { label: "About", id: "about" },
+                { label: "Services", id: "services" },
+                { label: "Contact", id: "contact" },
               ].map((link) => (
                 <li key={link.id}>
                   <button
+                    type="button"
                     onClick={() => scrollToSection(link.id)}
                     className="text-muted-foreground hover:text-primary transition-colors text-sm"
+                    aria-label={`Navigate to ${link.label} section`}
                   >
                     {link.label}
                   </button>
                 </li>
               ))}
             </ul>
-          </div>
+          </nav>
 
           {/* Connect */}
           <div>
             <h3 className="font-display font-semibold text-foreground mb-4">
               Connect
             </h3>
-            <div className="flex gap-3">
+            <ul className="flex gap-3" aria-label="Social media links">
               {/* LinkedIn */}
-              {isLinkedInValid ? (
-                <a
-                  href={LINKEDIN_URL}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center justify-center w-10 h-10 rounded-lg bg-muted hover:bg-primary/10 hover:text-primary transition-colors"
-                  aria-label="LinkedIn"
-                >
-                  <SiLinkedin className="w-5 h-5" />
-                </a>
-              ) : (
-                <div
-                  className="flex items-center justify-center w-10 h-10 rounded-lg bg-muted opacity-40 cursor-not-allowed"
-                  aria-label="LinkedIn (not configured)"
-                >
-                  <SiLinkedin className="w-5 h-5" />
-                </div>
-              )}
+              <li>
+                {isLinkedInValid ? (
+                  <a
+                    href={LINKEDIN_URL}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center justify-center w-10 h-10 rounded-lg bg-muted hover:bg-primary/10 hover:text-primary transition-colors"
+                    aria-label="Visit our LinkedIn company page"
+                  >
+                    <SiLinkedin className="w-5 h-5" aria-hidden="true" />
+                  </a>
+                ) : (
+                  <div
+                    className="flex items-center justify-center w-10 h-10 rounded-lg bg-muted opacity-40 cursor-not-allowed"
+                    aria-label="LinkedIn (not configured)"
+                    role="img"
+                  >
+                    <SiLinkedin className="w-5 h-5" aria-hidden="true" />
+                  </div>
+                )}
+              </li>
 
               {/* X (Twitter) */}
-              {isTwitterValid ? (
-                <a
-                  href={TWITTER_URL}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center justify-center w-10 h-10 rounded-lg bg-muted hover:bg-primary/10 hover:text-primary transition-colors"
-                  aria-label="X (Twitter)"
-                >
-                  <SiX className="w-5 h-5" />
-                </a>
-              ) : (
-                <div
-                  className="flex items-center justify-center w-10 h-10 rounded-lg bg-muted opacity-40 cursor-not-allowed"
-                  aria-label="X (Twitter) (not configured)"
-                >
-                  <SiX className="w-5 h-5" />
-                </div>
-              )}
+              <li>
+                {isTwitterValid ? (
+                  <a
+                    href={TWITTER_URL}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center justify-center w-10 h-10 rounded-lg bg-muted hover:bg-primary/10 hover:text-primary transition-colors"
+                    aria-label="Follow us on X (Twitter)"
+                  >
+                    <SiX className="w-5 h-5" aria-hidden="true" />
+                  </a>
+                ) : (
+                  <div
+                    className="flex items-center justify-center w-10 h-10 rounded-lg bg-muted opacity-40 cursor-not-allowed"
+                    aria-label="X (Twitter) (not configured)"
+                    role="img"
+                  >
+                    <SiX className="w-5 h-5" aria-hidden="true" />
+                  </div>
+                )}
+              </li>
 
               {/* Facebook */}
-              {isFacebookValid ? (
-                <a
-                  href={FACEBOOK_URL}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center justify-center w-10 h-10 rounded-lg bg-muted hover:bg-primary/10 hover:text-primary transition-colors"
-                  aria-label="Facebook"
-                >
-                  <SiFacebook className="w-5 h-5" />
-                </a>
-              ) : (
-                <div
-                  className="flex items-center justify-center w-10 h-10 rounded-lg bg-muted opacity-40 cursor-not-allowed"
-                  aria-label="Facebook (not configured)"
-                >
-                  <SiFacebook className="w-5 h-5" />
-                </div>
-              )}
-            </div>
+              <li>
+                {isFacebookValid ? (
+                  <a
+                    href={FACEBOOK_URL}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center justify-center w-10 h-10 rounded-lg bg-muted hover:bg-primary/10 hover:text-primary transition-colors"
+                    aria-label="Visit our Facebook page"
+                  >
+                    <SiFacebook className="w-5 h-5" aria-hidden="true" />
+                  </a>
+                ) : (
+                  <div
+                    className="flex items-center justify-center w-10 h-10 rounded-lg bg-muted opacity-40 cursor-not-allowed"
+                    aria-label="Facebook (not configured)"
+                    role="img"
+                  >
+                    <SiFacebook className="w-5 h-5" aria-hidden="true" />
+                  </div>
+                )}
+              </li>
+            </ul>
           </div>
         </div>
 
         {/* Bottom Bar */}
         <div className="pt-8 border-t">
           <div className="flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-muted-foreground">
-            <p>
-              © {currentYear} Terra Vedant Tech. All rights reserved.
-            </p>
+            <p>© {currentYear} Terra Vedant Tech. All rights reserved.</p>
             <p className="flex items-center gap-1">
-              Built with <Heart className="w-4 h-4 text-destructive fill-destructive" /> using{' '}
+              Built with{" "}
+              <Heart
+                className="w-4 h-4 text-destructive fill-destructive"
+                aria-label="love"
+              />{" "}
+              using{" "}
               <a
                 href={caffeineLink}
                 target="_blank"
@@ -162,4 +178,3 @@ export function SiteFooter() {
     </footer>
   );
 }
-

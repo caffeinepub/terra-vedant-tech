@@ -1,6 +1,6 @@
-import React, { Component, ErrorInfo, ReactNode } from 'react';
-import { AlertCircle } from 'lucide-react';
-import { Button } from '@/components/ui/button';
+import { Button } from "@/components/ui/button";
+import { AlertCircle } from "lucide-react";
+import React, { Component, type ErrorInfo, type ReactNode } from "react";
 
 interface Props {
   children: ReactNode;
@@ -22,7 +22,7 @@ export class ProductionErrorBoundary extends Component<Props, State> {
   }
 
   public componentDidCatch(error: Error, errorInfo: ErrorInfo) {
-    console.error('Uncaught error:', error, errorInfo);
+    console.error("Uncaught error:", error, errorInfo);
   }
 
   private handleReload = () => {
@@ -44,7 +44,8 @@ export class ProductionErrorBoundary extends Component<Props, State> {
                 Something went wrong
               </h1>
               <p className="text-muted-foreground">
-                We encountered an unexpected error. Please try reloading the page.
+                We encountered an unexpected error. Please try reloading the
+                page.
               </p>
             </div>
             <Button

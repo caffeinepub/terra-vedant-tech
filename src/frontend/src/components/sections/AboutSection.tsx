@@ -1,27 +1,31 @@
-import { aboutContent } from '../../content/marketingCopy';
-import { Leaf, Target, Users } from 'lucide-react';
+import { Leaf, Target, Users } from "lucide-react";
+import { aboutContent } from "../../content/marketingCopy";
 
 export function AboutSection() {
   const values = [
     {
       icon: Leaf,
-      title: 'Sustainability',
-      description: 'Committed to eco-friendly farming practices'
+      title: "Sustainability",
+      description: "Committed to eco-friendly farming practices",
     },
     {
       icon: Target,
-      title: 'Innovation',
-      description: 'Cutting-edge technology for modern agriculture'
+      title: "Innovation",
+      description: "Cutting-edge technology for modern agriculture",
     },
     {
       icon: Users,
-      title: 'Partnership',
-      description: 'Working together with farmers for success'
-    }
+      title: "Partnership",
+      description: "Working together with farmers for success",
+    },
   ];
 
   return (
-    <section id="about" className="py-24 bg-muted/30">
+    <section
+      id="about"
+      aria-label="About Terra Vedant Tech"
+      className="py-24 bg-muted/30"
+    >
       <div className="container px-4">
         <div className="max-w-4xl mx-auto">
           <div className="text-center mb-16">
@@ -34,15 +38,15 @@ export function AboutSection() {
           </div>
 
           <div className="grid md:grid-cols-3 gap-8 mt-16">
-            {values.map((value, index) => {
+            {values.map((value) => {
               const Icon = value.icon;
               return (
                 <div
-                  key={index}
+                  key={value.title}
                   className="text-center p-6 rounded-lg bg-card hover:shadow-soft transition-shadow"
                 >
                   <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-primary/10 mb-4">
-                    <Icon className="w-8 h-8 text-primary" />
+                    <Icon className="w-8 h-8 text-primary" aria-hidden="true" />
                   </div>
                   <h3 className="font-display font-semibold text-xl mb-2">
                     {value.title}
@@ -59,4 +63,3 @@ export function AboutSection() {
     </section>
   );
 }
-
